@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>股票行情系统</title>
+  <link rel="stylesheet" href="../css/layui.css">
+  <script src="../js/echarts.min.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+	  <div class="layui-header layui-bg-cyan">
+	    <div class="layui-logo">Stocks</div>
+	    <!-- 头部区域（可配合layui已有的水平导航） -->
+	    <ul class="layui-nav layui-layout-left">
+	      <li class="layui-nav-item"><a href="">控制台</a></li>
+	      <li class="layui-nav-item"><a href="">商品管理</a></li>
+	      <li class="layui-nav-item"><a href="">用户</a></li>
+	      <li class="layui-nav-item">
+	        <a href="javascript:;">其它系统</a>
+	        <dl class="layui-nav-child">
+	          <dd><a href="">邮件管理</a></dd>
+	          <dd><a href="">消息管理</a></dd>
+	          <dd><a href="">授权管理</a></dd>
+	        </dl>
+	      </li>
+	    </ul>
+	    <ul class="layui-nav layui-layout-right">
+	      <li class="layui-nav-item">
+	        <a href="javascript:;">
+	          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+	          贤心
+	        </a>
+	        <dl class="layui-nav-child">
+	          <dd><a href="">基本资料</a></dd>
+	          <dd><a href="">安全设置</a></dd>
+	        </dl>
+	      </li>
+	      <li class="layui-nav-item"><a href="">退了</a></li>
+	    </ul>
+	  </div>
+	  
+	  <div class="layui-side" style="background-color: #c2c2c2"> 
+	    <div class="layui-side-scroll">
+	      <ul class="layui-nav layui-nav-tree" lay-filter="test" style="background-color: #c2c2c2">
+	      	<li class="layui-nav-item"><a href="">首页</a></li>
+	      	<li class="layui-nav-item"><a href="">行情</a></li>
+	        <li class="layui-nav-item">
+	          <a href="javascript:;">个人中心</a>
+	          <dl class="layui-nav-child">
+	          	<dd><a href="personal.html">&nbsp;自选股</a></dd>
+	            <dd><a href="javascript:;">&nbsp;自定义分组</a>
+	            	<dl class="layui-nav-child">
+		            <dd><a href="javascript:;">&nbsp;&nbsp;分组一</a></dd>
+		            <dd><a href="javascript:;">&nbsp;&nbsp;分组二</a></dd>
+		            <dd><a href="">&nbsp;&nbsp;分组三</a></dd>
+		          </dl>
+	            </dd>
+	          </dl>
+	        </li>
+	        <li class="layui-nav-item"><a href="">交易</a></li>
+	        <li class="layui-nav-item"><a href="">资讯</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	  
+	  <div id="echarts-day"  class="layui-body">
+	    <!-- 内容主体区域 -->
+	    <div style="padding: 15px;"></div>
+	  </div>
+	  
+	</div>
+	<script src="../js/jquery.min1.3.5.js"></script>
+	<script src="../js/layui.js"></script>
+	<script src="../js/stocks/stockday.js"></script>
+</body>
+</html>

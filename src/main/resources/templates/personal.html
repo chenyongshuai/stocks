@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>股票行情系统</title>
+  <link rel="stylesheet" href="../css/layui.css">
+  <script src="../js/echarts.min.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+	  <div class="layui-header layui-bg-cyan">
+	    <div class="layui-logo">Stocks</div>
+	    <!-- 头部区域（可配合layui已有的水平导航） -->
+	    <ul class="layui-nav layui-layout-left">
+	      <li class="layui-nav-item"><a href="">控制台</a></li>
+	      <li class="layui-nav-item"><a href="">商品管理</a></li>
+	      <li class="layui-nav-item"><a href="">用户</a></li>
+	      <li class="layui-nav-item">
+	        <a href="javascript:;">其它系统</a>
+	        <dl class="layui-nav-child">
+	          <dd><a href="">邮件管理</a></dd>
+	          <dd><a href="">消息管理</a></dd>
+	          <dd><a href="">授权管理</a></dd>
+	        </dl>
+	      </li>
+	    </ul>
+	    <ul class="layui-nav layui-layout-right">
+	      <li class="layui-nav-item">
+	        <a href="javascript:;">
+	          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+	          贤心
+	        </a>
+	        <dl class="layui-nav-child">
+	          <dd><a href="">基本资料</a></dd>
+	          <dd><a href="">安全设置</a></dd>
+	        </dl>
+	      </li>
+	      <li class="layui-nav-item"><a href="">退了</a></li>
+	    </ul>
+	  </div>
+	  
+	  <div class="layui-side" style="background-color: #c2c2c2"> 
+	    <div class="layui-side-scroll">
+	      <ul class="layui-nav layui-nav-tree" lay-filter="test" style="background-color: #c2c2c2">
+	      	<li class="layui-nav-item"><a href="">首页</a></li>
+	      	<li class="layui-nav-item"><a href="">行情</a></li>
+	        <li class="layui-nav-item">
+	          <a href="javascript:;">个人中心</a>
+	          <dl class="layui-nav-child">
+	          	<dd><a class="layui-this">&nbsp;自选股</a></dd>
+	            <dd><a href="javascript:;">&nbsp;自定义分组</a>
+	            	<dl class="layui-nav-child">
+		            <dd><a href="javascript:;">&nbsp;&nbsp;分组一</a></dd>
+		            <dd><a href="javascript:;">&nbsp;&nbsp;分组二</a></dd>
+		            <dd><a href="">&nbsp;&nbsp;分组三</a></dd>
+		          </dl>
+	            </dd>
+	          </dl>
+	        </li>
+	        <li class="layui-nav-item"><a href="">交易</a></li>
+	        <li class="layui-nav-item"><a href="">资讯</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-body">
+	  	<div align="left" style="margin-left: 66px;padding-top: 5px;">
+	  	<div class="layui-btn-group">
+		  <button class="layui-btn layui-btn-primary layui-btn-sm">
+		    <i class="layui-icon">&#xe654;</i>
+		  </button>
+		  <!-- <button class="layui-btn layui-btn-primary layui-btn-sm">
+		    <i class="layui-icon">&#xe642;</i>
+		  </button> -->
+		  <button class="layui-btn layui-btn-primary layui-btn-sm">
+		    <i class="layui-icon">&#xe640;</i>
+		  </button>
+		</div>
+		</div> 
+		
+		
+	    <!-- 内容主体区域 -->
+	    <!-- <div style="padding: 0px 0px;"> -->
+	    	<div style="text-align: center;">
+			  <div class="layui-inline">
+			    <table id="tbl-list" lay-filter="test" class="layui-table"></table>
+			   </div>
+			</div>
+	    <!-- </div> -->
+	  </div>
+	  
+	  <div id="echarts-day"  class="layui-body-3">
+		    <!-- 内容主体区域 -->
+		    <div style="padding: 15px;"></div>
+	  </div>
+	</div>
+	
+	
+	<script src="../js/jquery.min1.3.5.js"></script>
+	<script src="../js/layui.js"></script>
+	<script src="../js/stocks/my-echarts.js"></script>
+	<script type="text/javascript">
+		var buid = "1014fd95-194c-4382-82c4-5d3dbb38b711";
+		layui.use('element', function(){
+			var element = layui.element;
+		});
+		layui.use('table', function(){
+			  var table = layui.table;
+			  //第一个实例
+			  table.render({
+			    elem: '#tbl-list',
+			    id:'tbl-list',
+			    height: 230,
+			    loading:true,
+			    size:'sm',
+			    cellMinWidth:0,
+			    url: 'plate/getStockList/2ce83aa5-8ca7-11e8-af3f-88c234bb101e', //数据接口
+			    page: true, //开启分页
+			    cols: [[ //表头
+			      {field:'buid',type:'checkbox',
+			    	  templet:function(d){
+			    		  console.log($(this).html());
+			      	  },
+			      },
+			      {type: 'numbers', title: '序号', width:40, align:'center'},
+			      {field:'stockNo',title:'股票代码',width:80, align:'center'},
+			      {field:'stockCnName',title:'股票名称',width:80, align:'center'},
+			      {field:'detailDay' , title:'日期' , width:100 , align:'center'},
+			      {field:'openPrice', title: '开盘价', width:70, align:'center'},
+			      {field:'closePrice',title:'收盘价',width:70, align:'center'},
+			      {field:'changePrice',title:'涨跌',width:70, align:'center'},
+			      {field:'changePercent',title:'涨跌幅',width:80,sort: true, align:'center',
+			    	  templet:function(d){
+			    		  var changePercent = parseFloat(d.changePercent);
+			    		  if(changePercent>=0){
+				          		return "+"+changePercent+"%"
+				          }else{
+				          		return changePercent+"%"
+				          }
+			      	  }
+			      },
+			      {field:'lowPrice',title:'最低价',width:70, align:'center'},
+			      {field:'topPrice',title:'最高价',width:70, align:'center'},
+			      {field:'dealCount',title:'成交量',width:70, align:'center'},
+			      {field:'dealAmount',title:'成交金额',width:100, align:'center'},
+			      {field:'tunPercent',title:'换手率',width:70, align:'center'}
+			      /* {fixed:'right',width:70, toolbar: '#barDemo'} */
+			    ]],
+			    done:function(res, curr, count){
+			    	$("td[data-field = 'changePercent']").each(function(index, data){
+			    		  var changePercent = parseFloat($(this).text());
+			          	  if(changePercent>0){
+			          		$(this).parent('tr').css("color","red");
+			          	  }else if(changePercent<0){
+			          		$(this).parent('tr').css("color","#00CC00");
+			          	  }else{
+			          		$(this).parent('tr').css("color","black");
+			          	  }
+			        })
+			        $("tbody tr").click(function(){
+			        	 console.log(buid);
+			        	 buid = $(this).children("td[data-field='buid']").data("content");
+			        	 getData(buid);
+					});
+			    }
+			  });
+			  table.on('sort(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				  //console.log(obj.field); //当前排序的字段名
+				  //console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+				  //console.log(this); //当前排序的 th 对象
+				  
+				  //尽管我们的 table 自带排序功能，但并没有请求服务端。
+				  //有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
+				  table.reload('tbl-list', {
+				    initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。 layui 2.1.1 新增参数
+				    ,where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+				      field: obj.field //排序字段
+				      ,order: obj.type //排序方式
+				    }
+				  });
+				});
+			   table.on('checkbox(test)', function(obj){
+				  //console.log(obj)
+				});
+			});
+		
+			
+			
+	</script>
+</body>
+</html>

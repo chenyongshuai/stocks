@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stocks.dao.StockDao">
+	
+	<select id="getStockByNo"  resultType="Stock">
+		Select * from base_stock where stock_No=#{stockNo}
+	</select>
+	
+	<select id="getStockByBuid" resultType="Stock">
+		select * from base_stock where buid=#{buid}
+	</select>
+	
+	<insert id="addStock">
+		insert into base_stock values(#{buid},#{stockNo},#{stockCnName},#{stockEngName},#{stockType},current_timestamp,#{createBy},current_timestamp,#{updateBy})
+	</insert>
+	
+</mapper>
