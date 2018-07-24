@@ -43,7 +43,7 @@ function calculateMA(dayCount,data) {
     return result;
 }
 
-$.get('../data/1014fd95-194c-4382-82c4-5d3dbb38b711.json', function (rawData) {
+$.get('../data/'+buid+'.json', function (rawData) {
 var data = splitData(rawData);
 myChart.setOption(option = {
 	title: {
@@ -454,8 +454,10 @@ type: 'bar',
 
 
 function getData(buid){
+	console.log(buid);
 	console.log("getData方法被调用!");
     $.get("../data/"+buid+".json",function(data){
+    console.log(data);
 	var data0 = splitData(data)
 	option.xAxis.data = data0.categoryData;
     option.series[0].data = data0.values;
@@ -465,9 +467,9 @@ function getData(buid){
     myChart.setOption(option);
 }
 
-setInterval(function(){
+/*setInterval(function(){
     getData(buid);
-},60000);
+},60000);*/
 
 if (option && typeof option === "object") {
     myChart.setOption(option, true);

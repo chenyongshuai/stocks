@@ -47,7 +47,7 @@ function calculateMA(dayCount,data) {
     return result;
 }
 
-$.get('../data/1014fd95-194c-4382-82c4-5d3dbb38b711.json', function (rawData) {
+$.get('../data/3ba08907-1592-45bf-ad57-e2fc058fe4d4.json', function (rawData) {
 var data = splitData(rawData);
 myChart.setOption(option = {
 	title: {
@@ -456,7 +456,7 @@ type: 'bar',
 
 
 function getData(){
-    $.get("../data/1014fd95-194c-4382-82c4-5d3dbb38b711.json",function(data){
+    $.get("../data/3ba08907-1592-45bf-ad57-e2fc058fe4d4.json",function(data){
 	var data0 = splitData(data)
 	option.xAxis.data = data0.categoryData;
     option.series[0].data = data0.values;
