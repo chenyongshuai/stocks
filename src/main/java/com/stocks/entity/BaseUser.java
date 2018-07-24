@@ -1,7 +1,6 @@
 package com.stocks.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /** @author:  v_chenyongshuai@:
   * @date:  2018年7月20日 下午6:05:29 
@@ -9,6 +8,10 @@ import java.util.Date;
   * @describe:    
   */
 public class BaseUser implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7035066708207645982L;
 	private String buid;
 	private String userName;
 	private String userPwd;

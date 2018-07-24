@@ -8,6 +8,10 @@ import java.io.Serializable;
   * @describe:    
   */
 public class PlateList implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2813257224831636266L;
 	private String plateBuid;
 	private String stockBuid;
 	private String createDate;

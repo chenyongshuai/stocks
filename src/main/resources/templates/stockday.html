@@ -42,7 +42,7 @@
 	  
 	  <div class="layui-side" style="background-color: #c2c2c2"> 
 	    <div class="layui-side-scroll">
-	      <ul class="layui-nav layui-nav-tree" style="background-color: #c2c2c2">
+	      <ul id="sideBar" class="layui-nav layui-nav-tree" style="background-color: #c2c2c2">
 	      	<li class="layui-nav-item"><a href="">首页</a></li>
 	      	<li class="layui-nav-item"><a href="">行情</a></li>
 	        <li class="layui-nav-item">
@@ -53,7 +53,7 @@
 	            	<dl class="layui-nav-child">
 		            <dd><a href="javascript:;">&nbsp;&nbsp;分组一</a></dd>
 		            <dd><a href="javascript:;">&nbsp;&nbsp;分组二</a></dd>
-		            <dd><a href="">&nbsp;&nbsp;分组三</a></dd>
+		            <dd><a href="javascript:;">&nbsp;&nbsp;分组三</a></dd>
 		          </dl>
 	            </dd>
 	          </dl>
@@ -73,5 +73,20 @@
 	<script src="../js/jquery.min1.3.5.js"></script>
 	<script src="../js/layui.js"></script>
 	<script src="../js/stocks/stockday.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				url:'../res/init',
+				async:false,
+				success:function(data){
+					console.log(data);
+					var sidebar = $("#sideBar")
+					$.each(data,function(index,value){
+						
+					});
+				}
+			});
+		});
+	</script>
 </body>
 </html>

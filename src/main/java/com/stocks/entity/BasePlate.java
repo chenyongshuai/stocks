@@ -9,6 +9,10 @@ import java.util.List;
   * @describe:    
   */
 public class BasePlate implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1880834053849706594L;
 	private String buid;
 	private String plateName;
 	private String plateDesc;
