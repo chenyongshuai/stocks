@@ -25,5 +25,37 @@ public class BaseUserServiceImpl implements BaseUserService {
 		}
 		return false;
 	}
+	
+	
+	@Override
+	public boolean getByUserMobile(String userMobileNo) {
+		BaseUser baseUser = dao.getByUsername(userMobileNo);
+		//System.out.println(baseUser);
+		if(baseUser!=null){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean getByNickName(String nickName) {
+		BaseUser baseUser = dao.getByNickName(nickName);
+		//System.out.println(baseUser);
+		if(baseUser!=null){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean addUser(BaseUser user) {
+		int addUser = dao.addUser(user);
+		if(addUser==1){
+			return true;
+		}
+		return false;
+	}
 
 }

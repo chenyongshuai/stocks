@@ -167,7 +167,7 @@ a cite {
 }
 
 .layui-show {
-	display: block !important
+	display: block !important;
 }
 
 .layui-hide {
@@ -813,8 +813,7 @@ a cite {
 	width: auto;
 	overflow: hidden;
 	overflow-y: auto;
-	box-sizing: border-box;
-	text-align : center
+	box-sizing: border-box
 }
 
 .layui-layout-body {
@@ -850,16 +849,6 @@ a cite {
 	line-height: 44px;
 	padding: 0 15px;
 	background-color: #eee
-}
-.layui-layout-admin .layui-footer-2 {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 44px;
-	line-height: 44px;
-	padding: 15px 15px 15px 15px;
-	background-color: #E6E6E6;
 }
 
 .layui-layout-admin .layui-logo {
@@ -1617,17 +1606,6 @@ a cite {
 	background-color: #fff
 }
 
-.layui-panel-window-my{
-	width:500px;
-	height:500px;
-	position: relative;
-	padding: 15px;
-	border-radius: 0;
-	border-top: 5px solid #E6E6E6;
-	background-color: #fff
-	
-}
-
 .layui-bg-red {
 	background-color: #FF5722 !important
 }
@@ -1952,7 +1930,7 @@ a cite {
 	width: 80px;
 	font-weight: 400;
 	line-height: 20px;
-	text-align: right;
+	text-align: right
 }
 
 .layui-form-label-col {
@@ -2336,109 +2314,6 @@ a cite {
 	color: #e2e2e2 !important
 }
 
-.layui-form-label-2 {
-	float: left;
-	display: block;
-	font-weight: 400;
-	line-height: 20px;
-	text-align: right;
-	background-color: #FBFBFB;
-	width: auto;
-    padding: 8px 15px;
-    height: auto;
-    line-height: 20px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px 0 0 2px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    box-sizing: border-box;
-    margin-left: 10px;
-}
-.layui-form-pane .layui-form-label-2 {
-	width: 110px;
-	padding: 8px 15px;
-	height: 38px;
-	line-height: 20px;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 2px 0 0 2px;
-	text-align: center;
-	background-color: #FBFBFB;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	box-sizing: border-box
-}
-.layui-body-2 {
-	padding:15px 15px 15px 15px;
-	position: absolute;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	bottom: 100px;
-	border-top: 15px solid #F0F0F0;
-	border-left: 80px solid #F0F0F0;
-	border-right: 80px solid #F0F0F0; /*  #E6E6E6*/
-	border-bottom: 150px solid #F0F0F0;
-	z-index: 998;
-	width: auto;
-	overflow: hidden;
-	overflow-y: auto;
-	box-sizing: border-box;
-}
-
-.layui-body-3 {
-    padding: 0px 0px 0px 15px;
-    position: absolute;
-    left: 200px;
-    right: 0px;
-    top: 335px;
-    bottom: 0px;
-    border-top: 0px solid #F0F0F0;
-    border-left: 0px solid #F0F0F0;
-    border-right: 0px solid #F0F0F0;
-    border-bottom: 0px solid #F0F0F0;
-    z-index: 998;
-    width: auto;
-    overflow: hidden;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-.layui-body-4 {
-    padding:15px 15px 15px 15px;
-	position: absolute;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	bottom: 200px;
-	border-top: 15px solid #F0F0F0;
-	border-left: 80px solid #F0F0F0;
-	border-right: 80px solid #F0F0F0; /*  #E6E6E6*/
-	border-bottom: 50px solid #F0F0F0;
-	z-index: 998;
-	width: auto;
-	overflow: hidden;
-	overflow-y: auto;
-	box-sizing: border-box;
-}
-.layui-layout-admin .layui-body-2 {
-	top: 60px;
-	bottom: 44px
-}
-
-.layui-layout-admin .layui-body-4 {
-	top: 60px;
-	bottom: 44px
-}
-
-
-.layui-layout-admin .layui-body-3 {
-	top: 335px;
-    bottom: 0px;
-}
 .layui-form-pane .layui-form-label {
 	width: 110px;
 	padding: 8px 15px;
@@ -2805,7 +2680,7 @@ a cite {
 }
 
 .layui-table, .layui-table-view {
-	margin: 3px 0
+	margin: 10px 0
 }
 
 .layui-flow-more {
@@ -2871,8 +2746,7 @@ a cite {
 	.layui-table[lay-skin=row] {
 	border-width: 1px;
 	border-style: solid;
-	border-color: #e6e6e6;
-	text-align:center;
+	border-color: #e6e6e6
 }
 
 .layui-table td, .layui-table th {
@@ -2880,8 +2754,7 @@ a cite {
 	padding: 9px 15px;
 	min-height: 20px;
 	line-height: 20px;
-	font-size: 14px;
-	text-align:center;
+	font-size: 14px
 }
 
 .layui-table[lay-skin=line] td, .layui-table[lay-skin=line] th {
@@ -2949,8 +2822,7 @@ a cite {
 .layui-table-view .layui-table td, .layui-table-view .layui-table th {
 	padding: 5px 0;
 	border-top: none;
-	border-left: none;
-	text-align: center;
+	border-left: none
 }
 
 .layui-table-view .layui-table td {
@@ -2964,8 +2836,7 @@ a cite {
 
 .layui-table-header {
 	border-width: 0 0 1px;
-	overflow: hidden;
-	text-align: center;
+	overflow: hidden
 }
 
 .layui-table-sort {
@@ -3019,8 +2890,7 @@ a cite {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	box-sizing: border-box;
-	text-align:center;
+	box-sizing: border-box
 }
 
 .layui-table-cell .layui-form-checkbox[lay-skin=primary],
@@ -3818,18 +3688,18 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-tab-brief>.layui-tab-title .layui-this {
-	color: #009688;
+	color: #009688
 }
 
 .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after
 	{
 	border: none;
 	border-radius: 0;
-	border-bottom: 2px solid #5FB878;
+	border-bottom: 2px solid #5FB878
 }
 
 .layui-tab-brief[overflow]>.layui-tab-title .layui-this:after {
-	top: -1px;
+	top: -1px
 }
 
 .layui-tab-card {

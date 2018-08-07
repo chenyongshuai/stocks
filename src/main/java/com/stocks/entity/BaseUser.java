@@ -19,21 +19,13 @@ public class BaseUser implements Serializable{
 	private String userBirthday;
 	private String userMobileNo;
 	private String createDate;
-    private String createBy;
     private String updateDate;
-    private String updateBy;
-	@Override
-	public String toString() {
-		return "BaseUser [buid=" + buid + ", userName=" + userName + ", userPwd=" + userPwd + ", userNickName="
-				+ userNickName + ", userBirthday=" + userBirthday + ", userMobileNo=" + userMobileNo + ", createDate="
-				+ createDate + ", createBy=" + createBy + ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
-	}
 	public BaseUser() {
 		super();
 		
 	}
 	public BaseUser(String buid, String userName, String userPwd, String userNickName, String userBirthday,
-			String userMobileNo, String createDate, String createBy, String updateDate, String updateBy) {
+			String userMobileNo, String createDate, String updateDate) {
 		super();
 		this.buid = buid;
 		this.userName = userName;
@@ -42,9 +34,13 @@ public class BaseUser implements Serializable{
 		this.userBirthday = userBirthday;
 		this.userMobileNo = userMobileNo;
 		this.createDate = createDate;
-		this.createBy = createBy;
 		this.updateDate = updateDate;
-		this.updateBy = updateBy;
+	}
+	@Override
+	public String toString() {
+		return "BaseUser [buid=" + buid + ", userName=" + userName + ", userPwd=" + userPwd + ", userNickName="
+				+ userNickName + ", userBirthday=" + userBirthday + ", userMobileNo=" + userMobileNo + ", createDate="
+				+ createDate + ", updateDate=" + updateDate + "]";
 	}
 	public String getBuid() {
 		return buid;
@@ -88,23 +84,14 @@ public class BaseUser implements Serializable{
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	public String getCreateBy() {
-		return createBy;
-	}
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
-	}
 	public String getUpdateDate() {
 		return updateDate;
 	}
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

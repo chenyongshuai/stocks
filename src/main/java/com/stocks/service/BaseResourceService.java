@@ -14,6 +14,7 @@ public interface BaseResourceService {
 	
 	/**
 	 * The initial version has no permission Settings
+	 * @param buid 
 	 * @return List<BaseResource>
 	 */
 	List<BaseResource> getBaseResource();

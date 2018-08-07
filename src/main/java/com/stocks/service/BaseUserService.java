@@ -14,4 +14,25 @@ public interface BaseUserService {
 	 * @return BaseUser
 	 */
 	Boolean getByUser(BaseUser user);
+	
+	/**
+	 * 
+	 * @param userMobileNo
+	 * @return BaseUser
+	 */
+	boolean getByUserMobile(String userMobileNo);
+	
+	/**
+	 * 
+	 * @param nickName
+	 * @return BaseUser
+	 */
+	boolean getByNickName(String nickName);
+	
+	/**
+	 * 
+	 * @param user
+	 * @return boolean
+	 */
+	boolean addUser(BaseUser user);
 }

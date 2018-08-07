@@ -32,4 +32,12 @@ public class BaseUserDaoTest {
 		BaseUser byUser = dao.getByUser(user );
 		System.out.println("========================="+byUser);
 	}
+	@Test
+	public void getByUsername(){
+		BaseUser user = new BaseUser();
+		user.setUserName("public_chenys@163.com");
+		String username = "public_chenys@163.com";
+		BaseUser byUsername = dao.getByUsername(username);
+		System.out.println(byUsername);
+	}
 }

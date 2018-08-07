@@ -24,7 +24,7 @@ public class BasePlateDaoTest {
 	private BasePlateDao bpd;
 	@Test
 	public void test(){
-		List<BasePlate> byUser = bpd.getByUser("0030e80c-8c04-11e8-af3f-88c234bb101e", null);
+		List<BasePlate> byUser = bpd.getByUser("0030e80c-8c04-11e8-af3f-88c234bb101e");
 		System.out.println();
 	}
 }

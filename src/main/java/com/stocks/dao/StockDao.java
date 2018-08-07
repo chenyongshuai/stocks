@@ -1,6 +1,12 @@
 package com.stocks.dao;
 
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import com.stocks.entity.Stock;
 
 /** @author:  v_chenyongshuai@:
@@ -27,4 +33,15 @@ public interface StockDao {
 	 * @return int
 	 */
 	int addStock(Stock stock);
+	
+	
+	/**
+	 * 
+	 * @return List<Stock>
+	 */
+	@Select("select buid,stock_no,stock_cn_name,stock_eng_name from base_stock order by stock_no")
+	List<Stock> getAll();
+	
+	@Update("update base_stock set stock_eng_name=#{stockEngName} where buid=#{buid}")
+	int updateStock(@Param(value="stockEngName")String stockEngName, @Param(value="buid")String buid);
 }

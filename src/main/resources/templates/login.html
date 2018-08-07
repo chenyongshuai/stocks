@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>登录股票行情系统</title>
-    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/layui.css?version=20180731">
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -67,7 +67,7 @@
 		      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 		    </div>
 		  </div>
-		</form>
+	    </form>
   </div>
   <div class="layui-footer-2">
 		Stocks社区
@@ -84,19 +84,20 @@
 		  var form = layui.form;
 		  //监听提交
 		  form.on('submit(formDemo)', function(data){
-			  	console.log(data.field.username)
 			    $.ajax({
 			    	url:"user/login",
 			    	method:"post",
 			    	async:false,
 			    	data:"userName="+data.field.username+"&userPwd="+data.field.password,
 			    	success:function(data){
-			    		if(data=='true'){
-			    			window.location = "stockday.html";
+			    		if(data){
+			    			console.log(data)
+			    			window.location = "market.html";
+			    		}else{
+						    layer.msg("手机/邮箱或密码错误");
 			    		}
 			    	}
 			    });
-			    layer.msg("手机/邮箱或密码错误");
 		    	return false;
 		  });
 		});

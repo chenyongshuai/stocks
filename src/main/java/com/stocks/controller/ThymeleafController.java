@@ -17,9 +17,9 @@ public class ThymeleafController {
 		return "index";
 	}
 	
-	@RequestMapping("stockday")
+	@RequestMapping("market")
 	public String day(){
-		return "stockday";
+		return "market";
 	}
 	
 	@RequestMapping("login")
@@ -36,4 +36,10 @@ public class ThymeleafController {
 	public String personal(){
 		return "personal";
 	}
+	
+	@RequestMapping("main")
+	public String main(){
+		return "main";
+	}
+	
 }

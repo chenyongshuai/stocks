@@ -1,5 +1,8 @@
 package com.stocks.service;
 
+import java.util.List;
+
+
 import com.stocks.entity.Stock;
 
 /** @author:  v_chenyongshuai@:
@@ -26,5 +29,9 @@ public interface StockService {
 	 * @return int
 	 */
 	int addStock(Stock stock);
-	
+	/**
+	 * 
+	 * @return List<Stock>
+	 */
+	List<Stock> getAll();
 }

@@ -9,6 +9,26 @@ import java.util.Map;
   */
 public interface PlateListService {
 	
+	/**
+	 * 
+	 * @param plateBuid
+	 * @return Map<String,Object>
+	 */
 	Map<String,Object> getListByPlate(String plateBuid);
+
+	/**
+	 * 
+	 * @param plateBuid
+	 * @param buid
+	 * @return int
+	 */
+	boolean addStockList(String plateBuid, String buid);
 	
+	/**
+	 * 
+	 * @param plateBuid
+	 * @param buidList
+	 * @return boolean
+	 */
+	boolean delStockList(String plateBuid,  String[] buidList);
 }

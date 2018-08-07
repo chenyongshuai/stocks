@@ -1,5 +1,7 @@
 package com.stocks.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,12 @@ public class StockServiceImpl implements StockService {
 
 	public int addStock(Stock stock) {
 		return dao.addStock(stock);
+	}
+
+
+	@Override
+	public List<Stock> getAll() {
+		return dao.getAll();
 	}
 
 }

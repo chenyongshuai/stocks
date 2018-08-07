@@ -1,6 +1,7 @@
 package com.stocks.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /** @author:  v_chenyongshuai@:
   * @date:  2018年7月24日 下午1:23:07 
@@ -26,9 +27,14 @@ public class BaseResource implements Serializable{
 	private String createBy;
 	private String updateDate;
 	private String updateBy;
+	private List<BaseResource> sonResource;
+	public BaseResource() {
+		super();
+		
+	}
 	public BaseResource(String buid, String showSeq, String resCnTitle, String resEngTitle, String resParentId,
 			String resLevel, String resType, String resHref, String resIcon, String resContent, String createDate,
-			String createBy, String updateDate, String updateBy) {
+			String createBy, String updateDate, String updateBy, List<BaseResource> sonResource) {
 		super();
 		this.buid = buid;
 		this.showSeq = showSeq;
@@ -44,10 +50,15 @@ public class BaseResource implements Serializable{
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
+		this.sonResource = sonResource;
 	}
-	public BaseResource() {
-		super();
-		
+	@Override
+	public String toString() {
+		return "BaseResource [buid=" + buid + ", showSeq=" + showSeq + ", resCnTitle=" + resCnTitle + ", resEngTitle="
+				+ resEngTitle + ", resParentId=" + resParentId + ", resLevel=" + resLevel + ", resType=" + resType
+				+ ", resHref=" + resHref + ", resIcon=" + resIcon + ", resContent=" + resContent + ", createDate="
+				+ createDate + ", createBy=" + createBy + ", updateDate=" + updateDate + ", updateBy=" + updateBy
+				+ ", sonResource=" + sonResource + "]";
 	}
 	public String getBuid() {
 		return buid;
@@ -133,11 +144,14 @@ public class BaseResource implements Serializable{
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
-	@Override
-	public String toString() {
-		return "BaseResource [buid=" + buid + ", showSeq=" + showSeq + ", resCnTitle=" + resCnTitle + ", resEngTitle="
-				+ resEngTitle + ", resParentId=" + resParentId + ", resLevel=" + resLevel + ", resType=" + resType
-				+ ", resHref=" + resHref + ", resIcon=" + resIcon + ", resContent=" + resContent + ", createDate="
-				+ createDate + ", createBy=" + createBy + ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
+	public List<BaseResource> getSonResource() {
+		return sonResource;
 	}
+	public void setSonResource(List<BaseResource> sonResource) {
+		this.sonResource = sonResource;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

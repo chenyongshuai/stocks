@@ -43,4 +43,7 @@ public interface StockDayDao {
 	
 	@Select("select a.buid,stock_no,stock_cn_name,stock_eng_name,stock_type,detail_day,open_price,close_price,change_price,change_percent,low_price,top_price,deal_count,deal_amount,tun_percent from base_stock_detail_day a left join base_stock b on a.buid=b.buid where a.buid = #{stockBuid} and a.detail_day = (select max(detail_day) detail_day from base_stock_detail_day where buid =#{stockBuid})")
 	StockDayVO getByBuidLast(String stockBuid);
+	
+	@Select("select buid,detail_day from base_stock_detail_day where buid=#{stockBuid} and detail_day=#{detailDay}")
+	StockDay getByBuidAndDay(@Param(value="stockBuid")String stockBuid, @Param(value="detailDay")String detailDay);
 }

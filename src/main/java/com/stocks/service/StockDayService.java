@@ -26,4 +26,6 @@ public interface StockDayService {
 	 * @return StockDetailDay
 	 */
 	List<StockDay> getByBuid(String buid);
+
+	boolean addStockByBuidAndPath(String realPath, String buid);
 }

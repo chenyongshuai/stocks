@@ -1,5 +1,6 @@
 package com.stocks.test.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.stocks.SpringBootApplication;
 import com.stocks.dao.StockDao;
 import com.stocks.entity.Stock;
+import com.stocks.util.Pinying4jUtils;
 
 /** @author:  v_chenyongshuai@:
   * @date:  2018年7月19日 下午9:21:06 
@@ -24,6 +26,18 @@ import com.stocks.entity.Stock;
 public class StockDaoTest {
 	@Autowired
 	private StockDao dao;
+	
+	@Test
+	public void testGetAll(){
+		List<Stock> all = dao.getAll();
+		for (Stock stock : all) {
+			String buid = stock.getBuid();
+			String stockCnName = stock.getStockCnName();
+			String headChar = Pinying4jUtils.getPinYinHeadChar(stockCnName);
+			int i = dao.updateStock(headChar, buid);
+			System.out.println(i);
+		}
+	}
 	
 	@Test
 	public void testGet(){
