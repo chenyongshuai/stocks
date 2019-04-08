@@ -38,8 +38,8 @@ public class PlateController {
 	
 	@RequestMapping("/delStockList")
 	@ResponseBody
-	public boolean addStockList(String plateBuid, String[] buidList){
-		boolean isDel = pls.delStockList(plateBuid,buidList);
+	public boolean addStockList(String plateBuid, String[] stockList){
+		boolean isDel = pls.delStockList(plateBuid,stockList);
 		return isDel;
 	}
 	

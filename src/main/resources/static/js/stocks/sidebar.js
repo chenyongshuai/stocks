@@ -3,11 +3,10 @@ $(function(){
 		url:'../res/init',
 		async:false,
 		success:function(data){
-			console.log(data);
 			var sidebar = $("#sideBar");
 			var htmlContent = "";
 			$.each(data,function(index,value){
-				htmlContent=htmlContent+"<li class=\"layui-nav-item\"><a data-url="+value.resHref+" data-type=\"tabAdd\" id="+value.buid+"><cite>"+value.resCnTitle+"</cite><em>"+value.resEngTitle+"</em></a></li>";
+				htmlContent=htmlContent+"<li class=\"layui-nav-item\"><a data-url="+value.resHref+" name=\"plateBuid\" data-type=\"tabAdd\" id="+value.buid+"><cite>"+value.resCnTitle+"</cite><em>"+value.resEngTitle+"</em></a></li>";
 			});
 			sidebar.html(htmlContent);
 			var buid="";
@@ -22,11 +21,12 @@ $(function(){
 			});
 			htmlSonContent=htmlSonContent+"</dl>";
 			$("#"+buid).parent().append(htmlSonContent);
+			$("#sideBar li:has(dl)").children("a").removeAttr("data-type").removeAttr("name");
 		}
 	});
-	$("[name=plateBuid]").click(function(){
+	/*$("[name=plateBuid]").click(function(){
 		sessionStorage.setItem("plateBuid",$(this).attr("id"));
 		return true;
-	});
+	});*/
 	
 });

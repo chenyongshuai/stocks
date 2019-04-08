@@ -16,20 +16,27 @@ public class StockSec implements Serializable{
 	private String buid;
 	  private String detailTime;
 	  private String detailDate;
-	  private Double currentPrice;
+	  private double currentPrice;
 	  private String changePrice;
-	  private Integer dealCount ;
-	  private Integer dealAmount;
-	  private Date createDate;
+	  private int dealCount ;
+	  private int dealAmount;
+	  private String createDate;
 	  private String createBy ;
-	  private Date updateDate ;
+	  private String updateDate ;
 	  private String updateBy ;
+	@Override
+	public String toString() {
+		return "StockSec [buid=" + buid + ", detailTime=" + detailTime + ", detailDate=" + detailDate
+				+ ", currentPrice=" + currentPrice + ", changePrice=" + changePrice + ", dealCount=" + dealCount
+				+ ", dealAmount=" + dealAmount + ", createDate=" + createDate + ", createBy=" + createBy
+				+ ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
+	}
 	public StockSec() {
 		super();
 		
 	}
-	public StockSec(String buid, String detailTime, String detailDate, Double currentPrice, String changePrice,
-			Integer dealCount, Integer dealAmount, Date createDate, String createBy, Date updateDate, String updateBy) {
+	public StockSec(String buid, String detailTime, String detailDate, double currentPrice, String changePrice,
+			int dealCount, int dealAmount, String createDate, String createBy, String updateDate, String updateBy) {
 		super();
 		this.buid = buid;
 		this.detailTime = detailTime;
@@ -42,13 +49,6 @@ public class StockSec implements Serializable{
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
-	}
-	@Override
-	public String toString() {
-		return "StockSec [buid=" + buid + ", detailTime=" + detailTime + ", detailDate=" + detailDate
-				+ ", currentPrice=" + currentPrice + ", changePrice=" + changePrice + ", dealCount=" + dealCount
-				+ ", dealAmount=" + dealAmount + ", createDate=" + createDate + ", createBy=" + createBy
-				+ ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
 	}
 	public String getBuid() {
 		return buid;
@@ -68,10 +68,10 @@ public class StockSec implements Serializable{
 	public void setDetailDate(String detailDate) {
 		this.detailDate = detailDate;
 	}
-	public Double getCurrentPrice() {
+	public double getCurrentPrice() {
 		return currentPrice;
 	}
-	public void setCurrentPrice(Double currentPrice) {
+	public void setCurrentPrice(double currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 	public String getChangePrice() {
@@ -80,22 +80,22 @@ public class StockSec implements Serializable{
 	public void setChangePrice(String changePrice) {
 		this.changePrice = changePrice;
 	}
-	public Integer getDealCount() {
+	public int getDealCount() {
 		return dealCount;
 	}
-	public void setDealCount(Integer dealCount) {
+	public void setDealCount(int dealCount) {
 		this.dealCount = dealCount;
 	}
-	public Integer getDealAmount() {
+	public int getDealAmount() {
 		return dealAmount;
 	}
-	public void setDealAmount(Integer dealAmount) {
+	public void setDealAmount(int dealAmount) {
 		this.dealAmount = dealAmount;
 	}
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	public String getCreateBy() {
@@ -104,10 +104,10 @@ public class StockSec implements Serializable{
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 	public String getUpdateBy() {
@@ -119,5 +119,6 @@ public class StockSec implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 	
 }

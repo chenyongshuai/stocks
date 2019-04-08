@@ -42,4 +42,13 @@ public class ThymeleafController {
 		return "main";
 	}
 	
+	@RequestMapping("stock")
+	public String stock(){
+		return "stock";
+	}
+	@RequestMapping("business")
+	public String business(){
+		return "business";
+	}
+	
 }

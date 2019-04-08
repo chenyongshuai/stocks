@@ -6,9 +6,8 @@ $(function(){
 	var upBorderColor = '#FF0000';
 	var downColor = '#00CC00';
 	var downBorderColor = '#00CC00';
-	var buid = null;
+	var buid = sessionStorage.getItem('buid');
 	var plateBuid = sessionStorage.getItem('plateBuid');
-	var plate = null;
 	
 	//搜索框
 	$.ajax({
@@ -36,7 +35,7 @@ $(function(){
 		});
 	}
 	
-	function getPlate(plateBuid){
+	/*function getPlate(plateBuid){
 		$.ajax({
 			url:'plate/getStockList/'+plateBuid,
 			async:false,
@@ -44,8 +43,8 @@ $(function(){
 				plate=data;
 			}
 		});
-	}
-	getPlate(plateBuid);
+	}*/
+	//getPlate(plateBuid);
 	if(buid==null&&plate.count!=0){
 		buid = plate.data[0].buid;
 	}
@@ -97,10 +96,10 @@ $(function(){
 								fontFamily:'monospace',
 					    		fontSize:13
 					    	}
-					},
-					animation:false,
-					backgroundColor: '#fff',
-					legend: {
+					    },
+					    animation:false,
+					    backgroundColor: '#fff',
+					    legend: {
 							textStyle:{
 								fontSize:10
 							},
@@ -116,9 +115,9 @@ $(function(){
 								'MA120': true,
 								'MA250': true
 							},
-					 selectedMode:'multiple'
-					 },
-					 tooltip: {
+							selectedMode:'multiple'
+					    },
+					    tooltip: {
 					     	trigger: 'item',
 					     	axisPointer: {
 						   		 			type: 'cross',
@@ -132,20 +131,20 @@ $(function(){
 						    	fontSize:6
 						    },
 						    extraCssText:'width:105px;height:105px;'
-					 },
-					 visualMap: {
-					    		show: false,
-					    		seriesIndex: 8,
-					    		dimension: 2,
-					    		pieces: [{
-					       		 			value: 1,
-					        				color: downColor
-					    				 }, {
-									        value: -1,
-									        color: 'red'
-									    }]
-					 },
-					 grid: [
+					    },
+					    visualMap: {
+				    		show: false,
+				    		seriesIndex: 8,
+				    		dimension: 2,
+				    		pieces: [{
+				       		 			value: 1,
+				        				color: downColor
+				    				 }, {
+								        value: -1,
+								        color: 'red'
+								    }]
+					    },
+					    grid: [
 					    	{
 					    		top: '7%',
 								left: '3%',
@@ -158,74 +157,74 @@ $(function(){
 								top: '70%',
 								height: '25%'
 							},
-					],
-					xAxis: [
-					    {
-					        type: 'category',
-							data: data0.categoryData,
-							scale: true,
-							boundaryGap : false,
-							axisLine: {onZero: false},
-							splitLine: {show: false},
-							splitNumber: 20,
-							min: 'dataMin',
-							max: 'dataMax',
-							axisPointer: {
-							        z: 100
-							}
-					},
-					{
-					    type: 'category',
-						gridIndex: 1,
-						data: data0.categoryData,
-						scale: true,
-						boundaryGap : false,
-						axisLine: {onZero: false},
-						axisTick: {show: false},
-						splitLine: {show: false},
-						axisLabel: {show: false},
-						splitNumber: 20,
-						min: 'dataMin',
-						max: 'dataMax'
-					    }
-					],
-					yAxis: [
-					    {
-					        scale: true,
-					        splitArea: {
-					            show: true
-					        }
-					    },
-					    {
-					        scale: true,
-					        gridIndex: 1,
-					        splitNumber: 2,
-					        axisLabel: {show: false},
-					        axisLine: {show: false},
-					        axisTick: {show: false},
-					        splitLine: {show: false}
-					    }
-					],
-					dataZoom: [
-					    {
-					        type: 'inside',
-							xAxisIndex: [0, 1],
-							top: '96%',
-						    start: 90,
-					    	end: 100
-						},
-						{
-						    show: true,
-						    xAxisIndex: [0, 1],
-						    type: 'slider',
-							top: '96%',
-					        start: 90,
-					        end: 100
-					    }
-					],
-					series: [
-					         //1
+						],
+						xAxis: [
+						    {
+						        type: 'category',
+								data: data0.categoryData,
+								scale: true,
+								boundaryGap : false,
+								axisLine: {onZero: false},
+								splitLine: {show: false},
+								splitNumber: 20,
+								min: 'dataMin',
+								max: 'dataMax',
+								axisPointer: {
+								        z: 100
+								}
+						    },
+						    {
+							    type: 'category',
+								gridIndex: 1,
+								data: data0.categoryData,
+								scale: true,
+								boundaryGap : false,
+								axisLine: {onZero: false},
+								axisTick: {show: false},
+								splitLine: {show: false},
+								axisLabel: {show: false},
+								splitNumber: 20,
+								min: 'dataMin',
+								max: 'dataMax'
+							    }
+						 ],
+						 yAxis: [
+						    {
+						        scale: true,
+						        splitArea: {
+						            show: true
+						        }
+						    },
+						    {
+						        scale: true,
+						        gridIndex: 1,
+						        splitNumber: 2,
+						        axisLabel: {show: false},
+						        axisLine: {show: false},
+						        axisTick: {show: false},
+						        splitLine: {show: false}
+						    }
+						 ],
+						 dataZoom: [
+						    {
+						        type: 'inside',
+								xAxisIndex: [0, 1],
+								top: '96%',
+							    start: 90,
+						    	end: 100
+							},
 							{
+							    show: true,
+							    xAxisIndex: [0, 1],
+							    type: 'slider',
+								top: '96%',
+						        start: 90,
+						        end: 100
+						    }
+						],
+						series: [
+					         //1
+					         {
 					    		name: '日K',
 								type: 'candlestick',
 								data: data0.values,
@@ -299,14 +298,14 @@ $(function(){
 											     closeText+'<hr size=1 style="margin: 3px 0">',
 											     changeText+'<hr size=1 style="margin: 3px 0">'
 											].join('');
-									}
-							},
-							markLine: {
-								lineStyle:{
-									color:'red'
-						    	},
-					    		symbol: ['none', 'none'],
-					    		data: [[
+					    				}
+								},
+								markLine: {
+									lineStyle:{
+										color:'red'
+							    	},
+							    	symbol: ['none', 'none'],
+							    	data: [[
 						        		{
 						            		name: 'from lowest to highest',
 											type: 'min',
@@ -339,128 +338,125 @@ $(function(){
 											type: 'max',
 											valueDim: 'close'
 										 }
-										 ]
-									}
-										    
-								},
+									]
+								}
+							},
 					//2
-								{
-								    name: 'MA5',
-									type: 'line',
-									data: calculateMA(5,data0),
-									symbolSize:0,
-									smooth: true,
-									lineStyle: {
-								    	normal: {opacity: 0.5}
-									},
-									itemStyle:{
-										color:'#0099FF'
-								    }
-									},
+							{
+							    name: 'MA5',
+								type: 'line',
+								data: calculateMA(5,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+							    	normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#0099FF'
+							    }
+							},
 					//3
-									{
-									    name: 'MA10',
-										type: 'line',
-										data: calculateMA(10,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#3300CC'
-									    }
-									},
+							{
+							    name: 'MA10',
+								type: 'line',
+								data: calculateMA(10,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#3300CC'
+							    }
+							},
 					//4
-									{
-									    name: 'MA20',
-										type: 'line',
-										data: calculateMA(20,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#CCCC33'
-									    }
-									},
+							{
+							    name: 'MA20',
+								type: 'line',
+								data: calculateMA(20,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#CCCC33'
+							    }
+							},
 					//5
-									{
-									    name: 'MA30',
-										type: 'line',
-										data: calculateMA(30,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#FF9933'
-									    }
-									},
+							{
+							    name: 'MA30',
+								type: 'line',
+								data: calculateMA(30,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#FF9933'
+							    }
+							},
 					//6
-									{
-									    name: 'MA60',
-										type: 'line',
-										data: calculateMA(60,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#FF6600'
-									    }
-									},
+							{
+							    name: 'MA60',
+								type: 'line',
+								data: calculateMA(60,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#FF6600'
+							    }
+							},
 					//7
-									{
-									    name: 'MA120',
-										type: 'line',
-										data: calculateMA(120,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#FF0099'
-									    }
-									},
+							{
+							    name: 'MA120',
+								type: 'line',
+								data: calculateMA(120,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#FF0099'
+							    }
+							},
 					//8
-									{
-									    name: 'MA250',
-										type: 'line',
-										data: calculateMA(250,data0),
-										symbolSize:0,
-										smooth: true,
-										lineStyle: {
-										    normal: {opacity: 0.5}
-										},
-										itemStyle:{
-											color:'#330033'
-									    }
-									},
+							{
+							    name: 'MA250',
+								type: 'line',
+								data: calculateMA(250,data0),
+								symbolSize:0,
+								smooth: true,
+								lineStyle: {
+								    normal: {opacity: 0.5}
+								},
+								itemStyle:{
+									color:'#330033'
+							    }
+							},
 					//9
-									{
-									    name: 'Volume',
-										type: 'bar',
-						                xAxisIndex: 1,
-						                yAxisIndex: 1,
-						                data: data0.volumes
-						            }
-							        ]
-							    },true);					    
-			}
+							{
+							    name: 'Volume',
+								type: 'bar',
+				                xAxisIndex: 1,
+				                yAxisIndex: 1,
+				                data: data0.volumes
+				            }
+						]
+					},true);					    
+				}
 		});
 		// 使用刚指定的配置项和数据显示图表。
 	}
 	if(buid!=null){
 		getData(buid);
 	}
-    
-    
-    layui.use(['form', 'table'], function(){
+    /*layui.use(['form', 'table'], function(){
     	  var list=[];
 		  var table = layui.table;
 		  //第一个实例
@@ -568,10 +564,10 @@ $(function(){
 			    return false;
 			  });
 			  form.on('submit(delDemo)', function(data){
-				/*console.log(buid);
+				console.log(buid);
 				console.log(typeof(buid));
 				console.log(list);
-				console.log(typeof(list[0]));*/
+				console.log(typeof(list[0]));
 			    var checkStatus = table.checkStatus('tbl-list'); //test即为基础参数id对应的值
 			    //console.log(checkStatus.data) //获取选中行的数据
 			    //console.log(checkStatus.data.length) //获取选中行数量，可作为是否有选中行的条件
@@ -613,7 +609,7 @@ $(function(){
 			    return false;
 			});
 			  
-		});    
+		}); */   
     
 });
 		    

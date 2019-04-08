@@ -14,26 +14,31 @@ public class StockDay implements Serializable{
 	private static final long serialVersionUID = 4141142631144845272L;
 	private String buid;
 	private String detailDay;
-	private Double   openPrice;
-	private Double  closePrice;
-	private String   changePrice;
-	private Double   changePercent ;
-	private Double   lowPrice ;
-	private Double   topPrice ;
-	private Double   dealCount;
-	private Double   dealAmount;
-	private Double 	tunPercent;
+	private Double openPrice;
+	private Double closePrice;
+	private Double changePrice;
+	private String changePercent ;
+	private Double lowPrice ;
+	private Double topPrice ;
+	private Double dealCount;
+	private Double dealAmount;
+	private String tunPercent;
+	private Double dif;
+	private Double dea;
+	private Double macd;
+	private Double ma60;
+	private Double ma120;
+	private Double ma250;
 	private String createDate;
-	private String createBy;
 	private String updateDate;
-    private String updateBy;
 	public StockDay() {
 		super();
 		
 	}
-	public StockDay(String buid, String detailDay, Double openPrice, Double closePrice, String changePrice,
-			Double changePercent, Double lowPrice, Double topPrice, Double dealCount, Double dealAmount,
-			Double tunPercent, String createDate, String createBy, String updateDate, String updateBy) {
+	public StockDay(String buid, String detailDay, Double openPrice, Double closePrice, Double changePrice,
+			String changePercent, Double lowPrice, Double topPrice, Double dealCount, Double dealAmount,
+			String tunPercent, Double dif, Double dea, Double macd, Double ma60, Double ma120, Double ma250,
+			String createDate, String updateDate) {
 		super();
 		this.buid = buid;
 		this.detailDay = detailDay;
@@ -46,18 +51,23 @@ public class StockDay implements Serializable{
 		this.dealCount = dealCount;
 		this.dealAmount = dealAmount;
 		this.tunPercent = tunPercent;
+		this.dif = dif;
+		this.dea = dea;
+		this.macd = macd;
+		this.ma60 = ma60;
+		this.ma120 = ma120;
+		this.ma250 = ma250;
 		this.createDate = createDate;
-		this.createBy = createBy;
 		this.updateDate = updateDate;
-		this.updateBy = updateBy;
 	}
 	@Override
 	public String toString() {
 		return "StockDay [buid=" + buid + ", detailDay=" + detailDay + ", openPrice=" + openPrice + ", closePrice="
 				+ closePrice + ", changePrice=" + changePrice + ", changePercent=" + changePercent + ", lowPrice="
 				+ lowPrice + ", topPrice=" + topPrice + ", dealCount=" + dealCount + ", dealAmount=" + dealAmount
-				+ ", tunPercent=" + tunPercent + ", createDate=" + createDate + ", createBy=" + createBy
-				+ ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
+				+ ", tunPercent=" + tunPercent + ", dif=" + dif + ", dea=" + dea + ", macd=" + macd + ", ma60=" + ma60
+				+ ", ma120=" + ma120 + ", ma250=" + ma250 + ", createDate=" + createDate + ", updateDate=" + updateDate
+				+ "]";
 	}
 	public String getBuid() {
 		return buid;
@@ -83,16 +93,16 @@ public class StockDay implements Serializable{
 	public void setClosePrice(Double closePrice) {
 		this.closePrice = closePrice;
 	}
-	public String getChangePrice() {
+	public Double getChangePrice() {
 		return changePrice;
 	}
-	public void setChangePrice(String changePrice) {
+	public void setChangePrice(Double changePrice) {
 		this.changePrice = changePrice;
 	}
-	public Double getChangePercent() {
+	public String getChangePercent() {
 		return changePercent;
 	}
-	public void setChangePercent(Double changePercent) {
+	public void setChangePercent(String changePercent) {
 		this.changePercent = changePercent;
 	}
 	public Double getLowPrice() {
@@ -119,11 +129,47 @@ public class StockDay implements Serializable{
 	public void setDealAmount(Double dealAmount) {
 		this.dealAmount = dealAmount;
 	}
-	public Double getTunPercent() {
+	public String getTunPercent() {
 		return tunPercent;
 	}
-	public void setTunPercent(Double tunPercent) {
+	public void setTunPercent(String tunPercent) {
 		this.tunPercent = tunPercent;
+	}
+	public Double getDif() {
+		return dif;
+	}
+	public void setDif(Double dif) {
+		this.dif = dif;
+	}
+	public Double getDea() {
+		return dea;
+	}
+	public void setDea(Double dea) {
+		this.dea = dea;
+	}
+	public Double getMacd() {
+		return macd;
+	}
+	public void setMacd(Double macd) {
+		this.macd = macd;
+	}
+	public Double getMa60() {
+		return ma60;
+	}
+	public void setMa60(Double ma60) {
+		this.ma60 = ma60;
+	}
+	public Double getMa120() {
+		return ma120;
+	}
+	public void setMa120(Double ma120) {
+		this.ma120 = ma120;
+	}
+	public Double getMa250() {
+		return ma250;
+	}
+	public void setMa250(Double ma250) {
+		this.ma250 = ma250;
 	}
 	public String getCreateDate() {
 		return createDate;
@@ -131,23 +177,11 @@ public class StockDay implements Serializable{
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	public String getCreateBy() {
-		return createBy;
-	}
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
-	}
 	public String getUpdateDate() {
 		return updateDate;
 	}
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
-	}
-	public String getUpdateBy() {
-		return updateBy;
-	}
-	public void setUpdateBy(String updateBy) {
-		this.updateBy = updateBy;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

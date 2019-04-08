@@ -44,4 +44,7 @@ public interface StockDao {
 	
 	@Update("update base_stock set stock_eng_name=#{stockEngName} where buid=#{buid}")
 	int updateStock(@Param(value="stockEngName")String stockEngName, @Param(value="buid")String buid);
+	
+	@Update("update base_stock set stock_cn_name=#{stockCnName},stock_trade=#{stockTrade},stock_loc=#{stockLoc},update_date=CURRENT_TIMESTAMP where stock_no=#{stockNo}")
+	int updateStockByNo(Stock stock);
 }

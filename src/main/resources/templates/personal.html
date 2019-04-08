@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" href="../css/layui.css?v=1213121"/>
-    <link rel="stylesheet" href="../css/global.css?v=122131"/>
+    <link rel="stylesheet" href="../css/layui.css?v=1"/>
+    <link rel="stylesheet" href="../css/global.css?v=1"/>
 </head>
 <body>
 	<div class="layui-main" style="margin-left: 15px;">
@@ -22,197 +22,1193 @@
 					<table id="category" lay-filter="tabledemo"></table>
 				</div>
 			</div>
+			<fieldset class="layui-elem-field layui-field-title">
+				<legend>股票列表</legend>
+			</fieldset>
+			<div class="layui-card">
+				<div class="layui-card-header layuiadmin-card-header-auto layui-inline">
+					<div class="layui-form">
+						<div class="layui-inline">
+							<div class="layui-input-inline">
+								<select id="inputSearch" lay-search>
+								</select>
+							</div>
+						</div>
+						<button class="layui-btn layuiadmin-btn-tags" data-type="search">查询</button>
+						<button class="layui-btn layuiadmin-btn-tags" data-type="list_add">添加</button>
+						<button class="layui-btn layuiadmin-btn-tags" data-type="list_del">删除</button>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table id="tbl-list" lay-filter="test"></table>
+				</div>
+			</div>
+			<fieldset class="layui-elem-field layui-field-title">
+				<legend>个股行情</legend>
+			</fieldset>
+			<div class="layui-card">
+				<div class="layui-card-body" id="echarts-day" style="height: 700px;"></div>
+			</div>
 		</div>
 	</div>
 	<script src="../js/jquery.min1.3.5.js"></script>
 	<script src="../js/layui.js"></script>
+	<script src="../js/echarts.min.js"></script>
 	<script type="text/javascript">
-			$(function(){
-				layui.use('element', function(){
-					var element = layui.element;
-				});	
-				layui.use(['table','layer'], function(){
-					  var table = layui.table;
-					  //方法级渲染
-					  table.render({
-					    elem: '#category'
-					    ,url: '/plate/getPlateList'
-					    ,cellMinWidth: 80
-					    ,cols: [[
-					      {field:'buid',type:'checkbox',
-					    	  templet:function(d){
-					      	  },
-					      }
-					      ,{field:'plateName', title: '板块名称'}
-					      ,{field:'plateDesc', title: '板块描述'}
-					      ,{field:'plateNo', title: '板块编码'}
-					      ,{field:'createDate', title: '创建时间',sort: true}
-					    ]]
-					    ,id: 'category'
-					    ,page: true
-					    ,height: 315
-					  });
-					  
-					  active = {
-							  del: function(){
-								  var checkStatus = table.checkStatus('category');
-								  if(checkStatus.data.length==0){
-									  layer.msg("请先选择要删除的内容");
-								  }else{
-									  var buidList = new Array();
-									  $.each(checkStatus.data,function(index,value){
-								    		buidList.push(value.buid);
-								    	});
-									  layer.open({
-							    		    title: '删除板块',
-							    	        type: 1
-							    	        ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-							    	        ,id: 'layerDemo'+'auto' //防止重复弹出
-							    	        ,content: '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item">是否确认删除？</div></div>'
-							    	        ,btn: ['确认','取消']
-								    	 	 ,yes: function(index, layero){
-								    		    //按钮【按钮一】的回调
-								    		    $.ajax({
-								    		    	url:'/plate/delPlate',
-								    		    	data:{
-								    		    		"buidList":buidList
-										    		},
-								    		    	async:false,
-								    		    	traditional: true,
-								    				success:function(data){
-								    					if(data){
-									    					table.reload('category');
-									    					layer.msg("删除成功");
-								    					}else{
-									    					layer.msg("删除失败");
-								    					}
-								    				}
-								    		    });
-								    		    layer.closeAll();
-								    		  }
-								    		  ,btn2: function(index, layero){
-								    		    //按钮【按钮二】的回调
-								    		    layer.closeAll();
-								    		    //return false 开启该代码可禁止点击该按钮关闭
-								    		  }
-							    	        ,btnAlign: 'c' //按钮居中
-							    	        ,shade: 0.8 //不显示遮罩
-							    	        ,success:function(layero, index){
-							    	        }
-							    	      });  
-								  }
-						      }
-							  ,edit: function(){
-								  var checkStatus = table.checkStatus('category');
-								  if(checkStatus.data.length==0){
-									  layer.msg("请先选择要修改的内容");
-								  }else if(checkStatus.data.length>1){
-									  layer.msg("请选择一行进行修改");
-								  }else{
-									  console.log(checkStatus.data);
-									  var plate_buid = checkStatus.data[0].buid;
-									  var plate_name = checkStatus.data[0].plateName;
-									  var plate_desc = checkStatus.data[0].plateDesc;
-									  var plate_no = checkStatus.data[0].plateNo;
-									  layer.open({
-							    		    title: '修改板块',
-							    	        type: 1
-							    	        ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-							    	        ,id: 'layerDemo'+'auto' //防止重复弹出
-							    	        ,content: '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item"><label class="layui-form-label">分类名</label><div class="layui-input-inline"><input id="plateName" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">分类描述</label><div class="layui-input-inline"><input id="plateDesc" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">编号</label><div class="layui-input-inline"><input id="plateNo" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div></div>'
-							    	        ,btn: ['确认','取消']
-								    	 	 ,yes: function(index, layero){
-								    		    //按钮【按钮一】的回调
-								    		    var plateName =  $("#plateName").val();
-								    		    var plateDesc = $("#plateDesc").val();
-								    		    var plateNo = $("#plateNo").val();
-								    		    $.ajax({
-								    		    	url:'/plate/editPlate',
-								    		    	method:'post',
-								    		    	data:{
-								    		    		"buid":plate_buid,
-										    			"plateName":plateName,
-										    			"plateDesc":plateDesc,
-										    			"plateNo":plateNo
-										    		},
-								    		    	async:false,
-								    				success:function(data){
-								    					if(data){
-									    					table.reload('category');
-									    					layer.msg("修改成功");
-								    					}else{
-									    					layer.msg("修改失败");
-								    					}
-								    				}
-								    		    });
-								    		    layer.closeAll();
-								    		  }
-								    		  ,btn2: function(index, layero){
-								    		    //按钮【按钮二】的回调
-								    		    layer.closeAll();
-								    		    //return false 开启该代码可禁止点击该按钮关闭
-								    		  }
-							    	        ,btnAlign: 'c' //按钮居中
-							    	        ,shade: 0.8 //不显示遮罩
-							    	        ,success:function(layero, index){
-							    	        	$("#plateName").val(plate_name);
-								    		    $("#plateDesc").val(plate_desc);
-								    		    $("#plateNo").val(plate_no);
-							    	        }
-							    	      });  
-								  }
-						      },
-						      add: function(){
-						    	  layer.open({
-						    	        type: 1,
-						    	        title: '添加板块'
-						    	        ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-						    	        ,id: 'layerDemo'+'auto' //防止重复弹出
-						    	        ,content: '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item"><label class="layui-form-label">分类名</label><div class="layui-input-inline"><input id="plateName" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">分类描述</label><div class="layui-input-inline"><input id="plateDesc" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">编号</label><div class="layui-input-inline"><input id="plateNo" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div></div>'
-						    	        ,btn: ['确认','取消']
-							    	 	 ,yes: function(index, layero){
-							    		    //按钮【按钮一】的回调
-							    		    var plateName =  $("#plateName").val();
-							    		    var plateDesc = $("#plateDesc").val();
-							    		    var plateNo = $("#plateNo").val();
-							    		    $.ajax({
-							    		    	url:'/plate/addPlate',
-							    		    	method:'post',
-							    		    	data:{
-									    			"plateName":plateName,
-									    			"plateDesc":plateDesc,
-									    			"plateNo":plateNo
-									    		},
-							    		    	async:false,
-							    				success:function(data){
-							    					if(data){
-								    					table.reload('category');
-								    					layer.msg("添加成功");
-							    					}else{
-								    					layer.msg("添加失败");
-							    					}
-							    				}
-							    		    });
-							    		    layer.closeAll();
-							    		  }
-							    		  ,btn2: function(index, layero){
-							    		    //按钮【按钮二】的回调
-							    		    layer.closeAll();
-							    		    //return false 开启该代码可禁止点击该按钮关闭
-							    		  }
-						    	        ,btnAlign: 'c' //按钮居中
-						    	        ,shade: 0.8 //不显示遮罩
-						    	      });  
-						      }
-						    }  
-
-					  $('.layui-btn.layuiadmin-btn-tags').on('click', function(){
-					      var type = $(this).data('type');
-					      active[type] ? active[type].call(this) : '';
-					    });
-
-				}); 
+		$(function() {
+			//搜索框
+			$.ajax({
+				url:"../stock/getAll",
+				async:false,
+				success:function(data){
+					$("#inputSearch").append("<option value=\"\">直接选择或搜索选择</option>");
+					$.each(data,function(index,value){
+						$("#inputSearch").append("<option value="+value.buid+">"+value.stockNo+","+value.stockCnName+"</option>");
+					});
+				}
 			});
+			var plateBuid = null;
+			var buid = null;
+			function initPlateBuidAndBuid(){
+				$.ajax({
+					url : '/plate/getPlateList',
+					async : false,
+					success : function(data) {
+						plateBuid = data.data[0].buid;
+						sessionStorage.setItem("plateBuid",plateBuid);
+						if(buid==null){
+							$.ajax({
+								url : '/list/getStockList/'+sessionStorage.getItem('plateBuid'),
+								async : false,
+								success : function(data0) {
+									if(data0.data.length!=0){
+										buid = data0.data[0].buid;
+										sessionStorage.setItem("buid",buid);
+										sessionStorage.setItem("stockNo",data0.data[0].stockNo);
+										sessionStorage.setItem("stockCnName",data0.data[0].stockCnName);
+									}else{
+										buid = $("#inputSearch").children(":eq(1)").val();
+										sessionStorage.setItem("buid",buid);
+										var stockNoName = $("#inputSearch").children(":eq(1)").html();
+										console.log(stockNoName);
+										var arr = stockNoName.split(",");
+										sessionStorage.setItem("stockNo",arr[0]);
+										sessionStorage.setItem("stockCnName",arr[1]);
+									}
+								}
+							});
+						}
+					}
+				});
+			}
+			if(plateBuid==null){
+				initPlateBuidAndBuid();
+			}
+			//element
+			layui.use('element', function() {
+				var element = layui.element;
+			});
+			//layui 组件
+			layui.use(['table', 'layer' ],function() {
+				var table = layui.table;
+				//方法级渲染
+				table.render({
+					elem : '#category',
+					url : '/plate/getPlateList',
+					cellMinWidth : 80,
+					cols : [ [ {
+						field : 'buid',
+						type : 'checkbox',
+						templet : function(d) {
+						},
+					}, {
+						field : 'plateName',
+						title : '板块名称'
+					}, {
+						field : 'plateDesc',
+						title : '板块描述'
+					}, {
+						field : 'plateNo',
+						title : '板块编码'
+					}, {
+						field : 'createDate',
+						title : '创建时间',
+						sort : true
+					} ] ],
+					id : 'category',
+					page : true,
+					height : 315,
+					done : function(res, curr, count) {
+						$("#category").next().find("tbody tr").click(function(){
+							//console.log($(this).children("td[data-field='buid']").data("content"));
+							sessionStorage.setItem("plateBuid",$(this).children("td[data-field='buid']").data("content"));
+							//console.log(sessionStorage.getItem("plateBuid"));
+							table.reload('tbl-list',{
+								url: 'list/getStockList/'+ sessionStorage.getItem('plateBuid')
+							});
+						});
+					}
+				});
+				table.render({
+					elem : '#tbl-list',
+					id : 'tbl-list',
+					loading : true,
+					height : 315,
+					url : 'list/getStockList/'
+							+ sessionStorage.getItem('plateBuid'), //数据接口
+					page : true, //开启分页
+					cols : [ [ //表头
+							{
+								field : 'buid',
+								type : 'checkbox',
+								templet : function(d) {
+								},
+							},
+							{
+								field : 'stockNo',
+								title : '股票代码',
+								align : 'center'
+							},
+							{
+								field : 'stockCnName',
+								title : '股票名称',
+								align : 'center'
+							},
+							{
+								field : 'detailDay',
+								title : '日期',
+								align : 'center'
+							},
+							{
+								field : 'openPrice',
+								title : '开盘价',
+								align : 'center'
+							},
+							{
+								field : 'closePrice',
+								title : '收盘价',
+								align : 'center'
+							},
+							{
+								field : 'changePrice',
+								title : '涨跌',
+								align : 'center'
+							},
+							{
+								field : 'changePercent',
+								title : '涨跌幅',
+								sort : true,
+								align : 'center',
+								templet : function(d) {
+									var changePercent = parseFloat(d.changePercent);
+									if (changePercent >= 0) {
+										return "+"
+												+ changePercent
+												+ "%"
+									} else {
+										return changePercent
+												+ "%"
+									}
+								}
+							},
+							{
+								field : 'lowPrice',
+								title : '最低价',
+								align : 'center'
+							},
+							{
+								field : 'topPrice',
+								title : '最高价',
+								align : 'center'
+							},
+							/* {
+								field : 'dealCount',
+								title : '成交量',
+								width : 70,
+								align : 'center'
+							},
+							{
+								field : 'dealAmount',
+								title : '成交金额',
+								width : 100,
+								align : 'center'
+							}, */
+							{
+								field : 'tunPercent',
+								title : '换手率',
+								align : 'center',
+								templet : function(d) {
+									var tunPercent = parseFloat(d.tunPercent);
+									return tunPercent
+											+ "%";
+								}
+							},
+							{
+								field: 'addEarn',
+								title: '自选收益',
+								align : 'center'
+							}] ],
+					done : function(res, curr, count) {
+						/* $.each(res.data, function(
+								index, value) {
+							list.push(value.buid);
+						}) */
+						$("td[data-field = 'changePercent']").each(
+							function(index,data) {
+								var changePercent = parseFloat($(this).text());
+								if (changePercent > 0) {
+									$(this).parent('tr').css("color","red");
+								} else if (changePercent < 0) {
+									$(this).parent('tr').css("color","#00CC00");
+								} else {
+									$(this).parent('tr').css("color","black");
+								}
+							})
+						/* $("tbody tr").click(function(){
+							buid = $(this).children("td[data-field='buid']").data("content");
+							getData(buid);
+						}); */
+						$("#tbl-list").next().find("tbody tr").click(function(){
+							initData($(this).children("td[data-field='buid']").data("content"));
+							sessionStorage.setItem("buid",$(this).children("td[data-field='buid']").data("content"));
+							sessionStorage.setItem("stockNo",$(this).children("td[data-field='stockNo']").data("content"));
+							sessionStorage.setItem("stockCnName",$(this).children("td[data-field='stockCnName']").data("content"));
+						});
+					}
+				});
+				table.on('sort(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+					layer.load(0, {time:'500', shade: true})
+			  		table.reload('tbl-list', {
+					    initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。 layui 2.1.1 新增参数
+					    ,where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+					      	field: obj.field //排序字段
+					      	,order: obj.type //排序方式
+					    }
+					});
+				});
+				active = {
+					search : function() {
+						sessionStorage.setItem("buid",$("#inputSearch").val());
+						var stockNoName = $("#inputSearch").children(":eq(1)").html();
+						console.log(stockNoName);
+						var arr = stockNoName.split(",");
+						sessionStorage.setItem("stockNo",arr[0]);
+						sessionStorage.setItem("stockCnName",arr[1]);
+						initData(sessionStorage.getItem("buid"));
+					},
+					list_del : function() {
+						var checkStatus = table.checkStatus('tbl-list');
+						if (checkStatus.data.length == 0) {
+							layer.msg("请先选择要删除的个股");
+						} else {
+							var stockList = new Array();
+							$.each(checkStatus.data, function(index, value) {
+								stockList.push(value.buid);
+							});
+							layer.open({
+								title : '删除个股',
+								type : 1,
+								offset :  ['500px', '400px']//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								,
+								id : 'layerDemo'
+										+ 'auto' //防止重复弹出
+								,
+								content : '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item">是否确认删除？</div></div>',
+								btn : [ '确认', '取消' ],
+								yes : function(index,layero) {
+									//按钮【按钮一】的回调
+									$.ajax({
+										url : '/list/delStockList',
+										data : {
+											"plateBuid":sessionStorage.getItem('plateBuid'),
+											"stockList":stockList
+										},
+										async : false,
+										traditional : true,
+										success : function(data) {
+											if (data) {
+												table.reload('tbl-list');
+												layer.msg("删除成功");
+											} else {
+												layer.msg("删除失败");
+											}
+										}
+									});
+									layer.closeAll();
+								},
+								btn2 : function(index,
+										layero) {
+									//按钮【按钮二】的回调
+									layer.closeAll();
+									//return false 开启该代码可禁止点击该按钮关闭
+								},
+								btnAlign : 'c' //按钮居中
+								,
+								shade : 0.8 //不显示遮罩
+								,
+								success : function(layero, index) {
+								}
+							});
+						}
+					},
+					list_add : function() {
+						var stockBuid = $("#inputSearch").val();
+						var plateBuid = sessionStorage.getItem('plateBuid');
+						$.ajax({
+							url:'/list/addStockList/'+plateBuid+"/"+stockBuid,
+							async : false,
+							success:function(data){
+								if(data){
+									table.reload('tbl-list');
+									layer.msg("添加成功");
+								}
+							}
+						});
+						/* layer.open({
+							type : 1,
+							title : '添加个股',
+							offset : 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+							,
+							id : 'layerDemo' + 'auto' //防止重复弹出
+							,
+							content : '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item"><label class="layui-form-label">分类名</label><div class="layui-input-inline"><input id="plateName" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">分类描述</label><div class="layui-input-inline"><input id="plateDesc" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">编号</label><div class="layui-input-inline"><input id="plateNo" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div></div>',
+							btn : [ '确认', '取消' ],
+							yes : function(index,
+									layero) {
+								//按钮【按钮一】的回调
+								var plateName = $("#plateName").val();
+								var plateDesc = $("#plateDesc").val();
+								var plateNo = $("#plateNo").val();
+								$.ajax({
+									url : '/plate/addPlate',
+									method : 'post',
+									data : {
+										"plateName" : plateName,
+										"plateDesc" : plateDesc,
+										"plateNo" : plateNo
+									},
+									async : false,
+									success : function(
+											data) {
+										if (data) {
+											table.reload('tbl-list');
+											layer.msg("添加成功");
+										} else {
+											layer.msg("添加失败");
+										}
+									}
+								});
+								layer.closeAll();
+							},
+							btn2 : function(index,
+									layero) {
+								//按钮【按钮二】的回调
+								layer.closeAll();
+								//return false 开启该代码可禁止点击该按钮关闭
+							},
+							btnAlign : 'c' //按钮居中
+							,
+							shade : 0.8
+						//不显示遮罩
+						}); */
+					},
+					del : function() {
+						var checkStatus = table.checkStatus('category');
+						if (checkStatus.data.length == 0) {
+							layer.msg("请先选择要删除的内容");
+						} else {
+							var buidList = new Array();
+							$.each(checkStatus.data, function(index, value) {
+								buidList.push(value.buid);
+							});
+							layer.open({
+								title : '删除板块',
+								type : 1,
+								offset : '100px' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								,
+								id : 'layerDemo'
+										+ 'auto' //防止重复弹出
+								,
+								content : '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item">是否确认删除？</div></div>',
+								btn : [ '确认', '取消' ],
+								yes : function(index,
+										layero) {
+									//按钮【按钮一】的回调
+									$.ajax({
+										url : '/plate/delPlate',
+										data : {
+											"buidList" : buidList
+										},
+										async : false,
+										traditional : true,
+										success : function(
+												data) {
+											if (data) {
+												initPlateBuidAndBuid();
+												table.reload('category');
+												table.reload('tbl-list',{
+													url: 'list/getStockList/'+ sessionStorage.getItem('plateBuid')
+												});
+												layer.msg("删除成功");
+											} else {
+												layer.msg("删除失败");
+											}
+										}
+									});
+									layer.closeAll();
+								},
+								btn2 : function(index,
+										layero) {
+									//按钮【按钮二】的回调
+									layer.closeAll();
+									//return false 开启该代码可禁止点击该按钮关闭
+								},
+								btnAlign : 'c' //按钮居中
+								,
+								shade : 0.8 //不显示遮罩
+								,
+								success : function(
+										layero, index) {
+								}
+							});
+						}
+					},
+					edit : function() {
+						var checkStatus = table.checkStatus('category');
+						if (checkStatus.data.length == 0) {
+							layer.msg("请先选择要修改的内容");
+						} else if (checkStatus.data.length > 1) {
+							layer.msg("请选择一行进行修改");
+						} else {
+							//console.log(checkStatus.data);
+							var plate_buid = checkStatus.data[0].buid;
+							var plate_name = checkStatus.data[0].plateName;
+							var plate_desc = checkStatus.data[0].plateDesc;
+							var plate_no = checkStatus.data[0].plateNo;
+							layer.open({
+								title : '修改板块',
+								type : 1,
+								offset : '100px' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								,
+								id : 'layerDemo'
+										+ 'auto' //防止重复弹出
+								,
+								content : '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item"><label class="layui-form-label">分类名</label><div class="layui-input-inline"><input id="plateName" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">分类描述</label><div class="layui-input-inline"><input id="plateDesc" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">编号</label><div class="layui-input-inline"><input id="plateNo" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div></div>',
+								btn : [ '确认', '取消' ],
+								yes : function(index,
+										layero) {
+									//按钮【按钮一】的回调
+									var plateName = $("#plateName").val();
+									var plateDesc = $("#plateDesc").val();
+									var plateNo = $("#plateNo").val();
+									$.ajax({
+										url : '/plate/editPlate',
+										method : 'post',
+										data : {
+											"buid" : plate_buid,
+											"plateName" : plateName,
+											"plateDesc" : plateDesc,
+											"plateNo" : plateNo
+										},
+										async : false,
+										success : function(data) {
+											if (data) {
+												table.reload('category');
+												layer.msg("修改成功");
+											} else {
+												layer.msg("修改失败");
+											}
+										}
+									});
+									layer.closeAll();
+								},
+								btn2 : function(index,
+										layero) {
+									//按钮【按钮二】的回调
+									layer.closeAll();
+									//return false 开启该代码可禁止点击该按钮关闭
+								},
+								btnAlign : 'c' //按钮居中
+								,
+								shade : 0.8 //不显示遮罩
+								,
+								success : function(layero, index) {
+									$("#plateName").val(plate_name);
+									$("#plateDesc").val(plate_desc);
+									$("#plateNo").val(plate_no);
+								}
+							});
+						}
+					},
+					add : function() {
+						layer.open({
+							type : 1,
+							title : '添加板块',
+							offset : '100px' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+							,
+							id : 'layerDemo' + 'auto' //防止重复弹出
+							,
+							content : '<div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags" style="padding-top: 30px; text-align: center;"><div class="layui-form-item"><label class="layui-form-label">分类名</label><div class="layui-input-inline"><input id="plateName" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">分类描述</label><div class="layui-input-inline"><input id="plateDesc" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label">编号</label><div class="layui-input-inline"><input id="plateNo" type="text" name="tags" lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input"></div></div></div>',
+							btn : [ '确认', '取消' ],
+							yes : function(index,
+									layero) {
+								//按钮【按钮一】的回调
+								var plateName = $("#plateName").val();
+								var plateDesc = $("#plateDesc").val();
+								var plateNo = $("#plateNo").val();
+								$.ajax({
+									url : '/plate/addPlate',
+									method : 'post',
+									data : {
+										"plateName" : plateName,
+										"plateDesc" : plateDesc,
+										"plateNo" : plateNo
+									},
+									async : false,
+									success : function(
+											data) {
+										if (data) {
+											table
+													.reload('category');
+											layer
+													.msg("添加成功");
+										} else {
+											layer
+													.msg("添加失败");
+										}
+									}
+								});
+								layer.closeAll();
+							},
+							btn2 : function(index,
+									layero) {
+								//按钮【按钮二】的回调
+								layer.closeAll();
+								//return false 开启该代码可禁止点击该按钮关闭
+							},
+							btnAlign : 'c' //按钮居中
+							,
+							shade : 0.8
+						//不显示遮罩
+						});
+					}
+				};
+				$('.layui-btn.layuiadmin-btn-tags').on('click',function() {
+					var type = $(this).data('type');
+					active[type] ? active[type]
+							.call(this) : '';
+				});
+			});
+			var myChart = echarts.init(document.getElementById('echarts-day'));
+			var upColor = '#FFFFFF';
+			var upBorderColor = '#FF0000';
+			var downColor = '#00CC00';
+			var downBorderColor = '#00CC00';
+			var buid = sessionStorage.getItem('buid');
+			var plateBuid = sessionStorage.getItem('plateBuid');
+
+
+			//初始化
+			function initData(buid) {
+				$.ajax({
+					url : 'day/getByBuid/' + buid,
+					async : false,
+					success : function(data) {
+						if (data) {
+							getData(buid);
+						}
+					}
+				});
+			}
+			//数据集
+			function splitData(rawData) {
+				//console.log(rawData);
+				var title = sessionStorage.getItem("stockNo")+"  "+sessionStorage.getItem("stockCnName");
+				var categoryData = [];
+				var values = [];
+				var volumes = [];
+				var dif = [];
+				var dea = [];
+				var macd = [];
+				for (var i = 0; i < rawData.length; i++) {
+					categoryData.push(rawData[i].splice(0, 1)[0]);
+					volumes.push([i,parseFloat(rawData[i].splice(4, 1)[0]),parseFloat(rawData[i][0]) > parseFloat(rawData[i][1]) ? 1: -1 ]);
+					dif.push(rawData[i].splice(4, 1)[0]);
+					dea.push(rawData[i].splice(4, 1)[0]);
+					macd.push(rawData[i].splice(4, 1)[0]);
+					values.push([rawData[i][0],rawData[i][1],rawData[i][2],rawData[i][3]]);
+				}
+				//console.log(dif);
+				//console.log(dea);
+				//console.log(macd);
+				return {
+					title : title,
+					categoryData : categoryData,
+					values : values,
+					volumes : volumes,
+					dif:dif,
+					dea:dea,
+					macd:macd
+				};
+			}
+			//均线
+			function calculateMA(dayCount, data) {
+				var result = [];
+				for (var i = 0, len = data.values.length; i < len; i++) {
+					if (i < dayCount) {
+						result.push('-');
+						continue;
+					}
+					var sum = 0;
+					for (var j = 0; j < dayCount; j++) {
+						sum += parseFloat(data.values[i - j][1]);
+					}
+					result.push((sum / dayCount).toFixed(2));
+				}
+				return result;
+			}
+			//K线图
+			function getData(buid) {
+				$.ajax({
+					url : '../data/' + buid + '.json?'+Date.parse(new Date()),
+					async : false,
+					error : function(jqXHR, textStatus, errorThrown) {
+						initData(buid);
+					},
+					success : function(data) {
+						data0 = splitData(data)
+						myChart.setOption(
+								option = {
+									title : {
+										text: data0.title,
+										top : '0%',
+										left : '2.5%',
+										textStyle : {
+											fontFamily : 'monospace',
+											fontSize : 13
+										}
+									},
+									animation : false,
+									backgroundColor : '#fff',
+									legend : {
+										textStyle : {
+											fontFamily : 'monospace',
+											fontSize : 13
+										},
+										top : '0%',
+										left : '20%',
+										data : [ '日K', 'MA5',
+												'MA10', 'MA20',
+												'MA30', 'MA60',
+												'MA120',
+												'MA250' ],
+										selected : {
+											'MA5' : false,
+											'MA10' : false,
+											'MA20' : false,
+											'MA30' : false,
+											'MA60' : true,
+											'MA120' : true,
+											'MA250' : true
+										},
+										selectedMode : 'multiple'
+									},
+									tooltip : {
+										trigger : 'item',
+										axisPointer : {
+											type : 'cross',
+										},
+										backgroundColor : 'rgba(245, 245, 245, 0.8)',
+										borderWidth : 1,
+										borderColor : '#ccc',
+										padding : 10,
+										textStyle : {
+											color : '#000',
+											fontSize : 6
+										},
+										extraCssText : 'width:105px;height:105px;'
+									},
+									visualMap : {
+										show : false,
+										seriesIndex : 8,
+										dimension : 2,
+										pieces : [ {
+											value : 1,
+											color : downColor
+										}, {
+											value : -1,
+											color : 'red'
+										} ]
+									},
+									grid : [ {
+										left : '3%',
+										right : '4%',
+										top : '5%',
+										height : '50%'
+									}, {
+										left : '3%',
+										right : '4%',
+										top : '55%',
+										height : '15%'
+									}, {
+								        left: '3%',
+								        right: '4%',
+								        top: '70%',
+								        height: '20%'
+								    }
+									],
+									xAxis : [
+											{
+												type : 'category',
+												data : data0.categoryData,
+												scale : true,
+												boundaryGap : false,
+												axisLine : {
+													onZero : false
+												},
+												splitLine : {
+													show : false
+												},
+												splitNumber : 20,
+												min : 'dataMin',
+												max : 'dataMax',
+												axisPointer : {
+													z : 100
+												}
+											},
+											{
+												type : 'category',
+												gridIndex : 1,
+												data : data0.categoryData,
+												scale : true,
+												boundaryGap : false,
+												axisLine : {
+													onZero : false
+												},
+												axisTick : {
+													show : false
+												},
+												splitLine : {
+													show : false
+												},
+												axisLabel : {
+													show : false
+												},
+												splitNumber : 20,
+												min : 'dataMin',
+												max : 'dataMax'
+											},{
+										        type: 'category',
+										        gridIndex: 2,
+										        data : data0.categoryData,
+										        axisLabel: {show: false}
+										    }],
+									yAxis : [ {
+										scale : true,
+										splitArea : {
+											show : true
+										}
+									}, {
+										scale : true,
+										gridIndex : 1,
+										splitNumber : 2,
+										axisLabel : {
+											show : false
+										},
+										axisLine : {
+											show : false
+										},
+										axisTick : {
+											show : false
+										},
+										splitLine : {
+											show : false
+										}
+									} ,{
+								  	  	gridIndex: 2,
+								        splitNumber: 4,
+								        axisLine: {onZero: false},
+								        axisTick: {show: true},
+								        splitLine: {show: false},
+								        axisLabel: {show: true}
+								    }],
+									dataZoom : [ {
+										type : 'inside',
+										xAxisIndex : [ 0, 1 ],
+										top : '96%',
+										start : 90,
+										end : 100
+									}, {
+										show : true,
+										xAxisIndex : [ 0, 1 ],
+										type : 'slider',
+										top : '96%',
+										start : 90,
+										end : 100
+									} ,{
+								        show: false,
+								        xAxisIndex: [0, 2],
+								        type: 'slider',
+								        start: 90,
+								        end: 100
+								    }],
+									series : [
+											//1
+											{
+												name : '日K',
+												type : 'candlestick',
+												data : data0.values,
+												itemStyle : {
+													normal : {
+														color : upColor,
+														color0 : downColor,
+														borderColor : upBorderColor,
+														borderColor0 : downBorderColor,
+													}
+												},
+												tooltip : {
+													formatter : function(
+															param) {
+														var changePercent = 0;
+														var openText = '';
+														var closeText = '';
+														var highText = '';
+														var lowText = '';
+														var changeText = '';
+														$
+																.each(
+																		data0.categoryData,
+																		function(
+																				idx,
+																				val) {
+																			if (val == param.name) {
+																				var yesClosePrice = parseFloat(data0.values[idx - 1][1])
+																				var openPrice = parseFloat(data0.values[idx][0])
+																				var closePrice = parseFloat(data0.values[idx][1])
+																				var lowPrice = parseFloat(data0.values[idx][2])
+																				var topPrice = parseFloat(data0.values[idx][3])
+																				openPercent = ((openPrice - yesClosePrice)
+																						/ yesClosePrice * 100)
+																						.toFixed(2)
+																				changePercent = ((closePrice - yesClosePrice)
+																						/ yesClosePrice * 100)
+																						.toFixed(2)
+																				if (changePercent > 0) {
+																					changeText = '<span style="color:red">涨跌幅: '
+																							+ changePercent
+																							+ '%</span><br/>'
+																				} else if (changePercent == 0) {
+																					changeText = '<span style="color:black">涨跌幅: '
+																							+ changePercent
+																							+ '%</span><br/>'
+																				} else if (changePercent < 0) {
+																					changeText = '<span style="color:#00CC00">涨跌幅: '
+																							+ changePercent
+																							+ '%</span><br/>'
+																				}
+																				if (openPercent > 0) {
+																					openText = '<span style="color:red">开盘价: '
+																							+ param.data[1]
+																							+ '('
+																							+ openPercent
+																							+ '%)</span><br/>'
+																				} else if (openPercent == 0) {
+																					openText = '<span style="color:black">开盘价: '
+																							+ param.data[1]
+																							+ '('
+																							+ openPercent
+																							+ '%)</span><br/>'
+																				} else if (openPercent < 0) {
+																					openText = '<span style="color:#00CC00">开盘价: '
+																							+ param.data[1]
+																							+ '('
+																							+ openPercent
+																							+ '%)</span><br/>'
+																				}
+																				if (topPrice > yesClosePrice) {
+																					highText = '<span style="color:red">最高价: '
+																							+ param.data[4]
+																							+ '</span><br/>'
+																				} else if (topPrice == yesClosePrice) {
+																					highText = '<span style="color:black">最高价: '
+																							+ param.data[4]
+																							+ '</span><br/>'
+																				} else if (topPrice < yesClosePrice) {
+																					highText = '<span style="color:#00CC00">最高价: '
+																							+ param.data[4]
+																							+ '</span><br/>'
+																				}
+																				if (lowPrice > yesClosePrice) {
+																					lowText = '<span style="color:red">最低价: '
+																							+ param.data[3]
+																							+ '</span><br/>'
+																				} else if (lowPrice == yesClosePrice) {
+																					lowText = '<span style="color:black">最高价: '
+																							+ param.data[3]
+																							+ '</span><br/>'
+																				} else if (lowPrice < yesClosePrice) {
+																					lowText = '<span style="color:#00CC00">最高价: '
+																							+ param.data[3]
+																							+ '</span><br/>'
+																				}
+																				if (closePrice > yesClosePrice) {
+																					closeText = '<span style="color:red">收盘价: '
+																							+ param.data[2]
+																							+ '</span><br/>'
+																				} else if (closePrice == yesClosePrice) {
+																					closeText = '<span style="color:black">收盘价: '
+																							+ param.data[2]
+																							+ '</span><br/>'
+																				} else if (closePrice < yesClosePrice) {
+																					closeText = '<span style="color:#00CC00">收盘价: '
+																							+ param.data[2]
+																							+ '</span><br/>'
+																				}
+																			}
+																		});
+														return [
+																'日期: '
+																		+ param.name
+																		+ '<hr size=1 style="margin: 3px 0">',
+																openText
+																		+ '<hr size=1 style="margin: 3px 0">',
+																highText
+																		+ '<hr size=1 style="margin: 3px 0">',
+																lowText
+																		+ '<hr size=1 style="margin: 3px 0">',
+																closeText
+																		+ '<hr size=1 style="margin: 3px 0">',
+																changeText
+																		+ '<hr size=1 style="margin: 3px 0">' ]
+																.join('');
+													}
+												},
+												markLine : {
+													lineStyle : {
+														color : 'red'
+													},
+													symbol : [
+															'none',
+															'none' ],
+													data : [
+															[
+																	{
+																		name : 'from lowest to highest',
+																		type : 'min',
+																		valueDim : 'lowest',
+																		symbol : 'circle',
+																		symbolSize : 5,
+																		label : {
+																			normal : {
+																				show : false
+																			},
+																			emphasis : {
+																				show : false
+																			}
+																		}
+																	},
+																	{
+																		type : 'max',
+																		valueDim : 'highest',
+																		symbol : 'circle',
+																		symbolSize : 5,
+																		label : {
+																			normal : {
+																				show : false
+																			},
+																			emphasis : {
+																				show : false
+																			}
+																		}
+																	} ],
+															{
+																name : 'min line on close',
+																type : 'min',
+																valueDim : 'close'
+															},
+															{
+																name : 'max line on close',
+																type : 'max',
+																valueDim : 'close'
+															} ]
+												}
+
+											},
+											//2
+											{
+												name : 'MA5',
+												type : 'line',
+												data : calculateMA(
+														5,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#0099FF'
+												}
+											},
+											//3
+											{
+												name : 'MA10',
+												type : 'line',
+												data : calculateMA(
+														10,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#3300CC'
+												}
+											},
+											//4
+											{
+												name : 'MA20',
+												type : 'line',
+												data : calculateMA(
+														20,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#CCCC33'
+												}
+											},
+											//5
+											{
+												name : 'MA30',
+												type : 'line',
+												data : calculateMA(
+														30,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#FF9933'
+												}
+											},
+											//6
+											{
+												name : 'MA60',
+												type : 'line',
+												data : calculateMA(
+														60,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#FF6600'
+												}
+											},
+											//7
+											{
+												name : 'MA120',
+												type : 'line',
+												data : calculateMA(
+														120,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#FF0099'
+												}
+											},
+											//8
+											{
+												name : 'MA250',
+												type : 'line',
+												data : calculateMA(
+														250,
+														data0),
+												symbolSize : 0,
+												smooth : true,
+												lineStyle : {
+													normal : {
+														opacity : 0.5
+													}
+												},
+												itemStyle : {
+													color : '#330033'
+												}
+											},
+											//9
+											{
+												name : 'Volume',
+												type : 'bar',
+												xAxisIndex : 1,
+												yAxisIndex : 1,
+												data : data0.volumes
+											},
+											{
+									            name: 'MACD',
+									            type: 'bar',
+									            xAxisIndex: 2,
+									            yAxisIndex: 2,
+									            data: data0.macd,
+									            itemStyle: {
+									    	    	  normal: {
+									    		          color: function(params) {
+									    		              var colorList;
+									    		              if (params.data >= 0) {
+									    		                  colorList = '#ef232a';
+									    		              } else {
+									    		                  colorList = '#14b143';
+									    		              }
+									    		              return colorList;
+									    		          },
+									    		      }
+									    	      }
+									        },{
+									            name: 'DIF',
+									            type: 'line',
+									            xAxisIndex: 2,
+									            yAxisIndex: 2,
+									            data: data0.dif
+									        },{
+									            name: 'DEA',
+									            type: 'line',
+									            xAxisIndex: 2,
+									            yAxisIndex: 2,
+									            data: data0.dea
+									        }]
+								}, true);
+							}
+						});
+			}
+			// 使用刚指定的配置项和数据显示图表。
+			if (buid != null) {
+				initData(buid);
+			}
+		});
 	</script>
 </body>
 </html>

@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="addStock">
-		insert into base_stock values(#{buid},#{stockNo},#{stockCnName},#{stockEngName},#{stockType},current_timestamp,#{createBy},current_timestamp,#{updateBy})
+		insert into base_stock values(UUID(),#{stockNo},#{stockCnName},#{stockEngName},#{stockType},#{stockTrade},#{stockLoc},current_timestamp,#{createBy},current_timestamp,#{updateBy})
 	</insert>
 	
 </mapper>

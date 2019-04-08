@@ -52,7 +52,7 @@ public interface BasePlateDao {
 	 * @param plate
 	 * @return int
 	 */
-	@Update("update c set plate_name =#{plateName},plate_desc=#{plateDesc},plate_no=#{plateNo},update_date =CURRENT_TIMESTAMP where buid=#{buid}")
+	@Update("update base_plate set plate_name =#{plateName},plate_desc=#{plateDesc},plate_no=#{plateNo},update_date =CURRENT_TIMESTAMP where buid=#{buid}")
 	int editPlate(BasePlate plate);
 	/**
 	 * 

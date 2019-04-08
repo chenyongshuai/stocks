@@ -14,22 +14,19 @@ public class StockDayVO implements Serializable{
 	private String stockEngName;
 	private String stockType;
 	private String detailDay;
-	private Double   openPrice;
-	private Double  closePrice;
-	private String   changePrice;
-	private Double   changePercent ;
-	private Double   lowPrice ;
-	private Double   topPrice ;
-	private Double   dealCount;
-	private Double   dealAmount;
-	private Double 	tunPercent;
-	public StockDayVO() {
-		super();
-		
-	}
+	private double openPrice;
+	private double closePrice;
+	private String changePrice;
+	private double changePercent;
+	private double lowPrice ;
+	private double topPrice ;
+	private double dealCount;
+	private double dealAmount;
+	private double tunPercent;
+	private String addEarn;
 	public StockDayVO(String buid, String stockNo, String stockCnName, String stockEngName, String stockType,
-			String detailDay, Double openPrice, Double closePrice, String changePrice, Double changePercent,
-			Double lowPrice, Double topPrice, Double dealCount, Double dealAmount, Double tunPercent) {
+			String detailDay, double openPrice, double closePrice, String changePrice, double changePercent,
+			double lowPrice, double topPrice, double dealCount, double dealAmount, double tunPercent, String addEarn) {
 		super();
 		this.buid = buid;
 		this.stockNo = stockNo;
@@ -46,6 +43,11 @@ public class StockDayVO implements Serializable{
 		this.dealCount = dealCount;
 		this.dealAmount = dealAmount;
 		this.tunPercent = tunPercent;
+		this.addEarn = addEarn;
+	}
+	public StockDayVO() {
+		super();
+		
 	}
 	@Override
 	public String toString() {
@@ -53,7 +55,7 @@ public class StockDayVO implements Serializable{
 				+ stockEngName + ", stockType=" + stockType + ", detailDay=" + detailDay + ", openPrice=" + openPrice
 				+ ", closePrice=" + closePrice + ", changePrice=" + changePrice + ", changePercent=" + changePercent
 				+ ", lowPrice=" + lowPrice + ", topPrice=" + topPrice + ", dealCount=" + dealCount + ", dealAmount="
-				+ dealAmount + ", tunPercent=" + tunPercent + "]";
+				+ dealAmount + ", tunPercent=" + tunPercent + ", addEarn=" + addEarn + "]";
 	}
 	public String getBuid() {
 		return buid;
@@ -91,16 +93,16 @@ public class StockDayVO implements Serializable{
 	public void setDetailDay(String detailDay) {
 		this.detailDay = detailDay;
 	}
-	public Double getOpenPrice() {
+	public double getOpenPrice() {
 		return openPrice;
 	}
-	public void setOpenPrice(Double openPrice) {
+	public void setOpenPrice(double openPrice) {
 		this.openPrice = openPrice;
 	}
-	public Double getClosePrice() {
+	public double getClosePrice() {
 		return closePrice;
 	}
-	public void setClosePrice(Double closePrice) {
+	public void setClosePrice(double closePrice) {
 		this.closePrice = closePrice;
 	}
 	public String getChangePrice() {
@@ -109,41 +111,47 @@ public class StockDayVO implements Serializable{
 	public void setChangePrice(String changePrice) {
 		this.changePrice = changePrice;
 	}
-	public Double getChangePercent() {
+	public double getChangePercent() {
 		return changePercent;
 	}
-	public void setChangePercent(Double changePercent) {
+	public void setChangePercent(double changePercent) {
 		this.changePercent = changePercent;
 	}
-	public Double getLowPrice() {
+	public double getLowPrice() {
 		return lowPrice;
 	}
-	public void setLowPrice(Double lowPrice) {
+	public void setLowPrice(double lowPrice) {
 		this.lowPrice = lowPrice;
 	}
-	public Double getTopPrice() {
+	public double getTopPrice() {
 		return topPrice;
 	}
-	public void setTopPrice(Double topPrice) {
+	public void setTopPrice(double topPrice) {
 		this.topPrice = topPrice;
 	}
-	public Double getDealCount() {
+	public double getDealCount() {
 		return dealCount;
 	}
-	public void setDealCount(Double dealCount) {
+	public void setDealCount(double dealCount) {
 		this.dealCount = dealCount;
 	}
-	public Double getDealAmount() {
+	public double getDealAmount() {
 		return dealAmount;
 	}
-	public void setDealAmount(Double dealAmount) {
+	public void setDealAmount(double dealAmount) {
 		this.dealAmount = dealAmount;
 	}
-	public Double getTunPercent() {
+	public double getTunPercent() {
 		return tunPercent;
 	}
-	public void setTunPercent(Double tunPercent) {
+	public void setTunPercent(double tunPercent) {
 		this.tunPercent = tunPercent;
 	}
-
+	public String getAddEarn() {
+		return addEarn;
+	}
+	public void setAddEarn(String addEarn) {
+		this.addEarn = addEarn;
+	}
+	
 }

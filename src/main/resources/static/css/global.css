@@ -63,7 +63,14 @@ h1,h2,h3{font-size: 14px;}
 .layuiadmin-card-header-auto .layui-form-item:last-child {
 	margin-bottom: 0
 }
-
+.layadmin-loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -16px -15px;
+	font-size: 30px;
+	color: #c2c2c2
+}
 
 
 
@@ -359,6 +366,17 @@ body .layui-layer-dir .layui-layer-content{padding: 10px;}
 .layadmin-shortcut a:hover {
 	background-color: #f2f2f2
 }
+.layadmin-dataview {
+	height: 332px !important
+}
+.layadmin-dataview>[carousel-item]:before {
+	display: none
+}
+
+.layadmin-dataview>[carousel-item]>div {
+	height: 332px
+}
+
 
 .site-doc-icon li .doc-icon-name,
 .site-doc-icon li .doc-icon-code{color: #c2c2c2;}
@@ -373,7 +391,7 @@ body .layui-layer-dir .layui-layer-content{padding: 10px;}
 
 
 /* 婕旂ず */
-body .layui-layout-admin .site-demo{bottom: 60px; padding: 0;}
+body .layui-layout-admin .site-demo{bottom: 0px; padding: 0;}
 body .site-demo-nav .layui-nav-item{line-height: 40px}
 .layui-nav-item .layui-icon{position: relative; font-size: 20px;}
 .layui-nav-item a cite{padding: 0 10px;}
@@ -519,7 +537,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
   .site-mobile .layui-side{left: 0;}
   .site-mobile .layui-side-child{top: 50%; left: 200px; height: 300px; margin-top: -100px;}
 
-  body .layui-layout-admin .footer-demo{position: static; height: auto; line-height: 30px;}
+  body .layui-layout-admin .footer-demo{position: static; height: auto; line-height: 20px;}
   .footer-demo p{height: auto;}
 
   .site-demo-area,

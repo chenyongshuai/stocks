@@ -19,16 +19,16 @@ public interface PlateListService {
 	/**
 	 * 
 	 * @param plateBuid
-	 * @param buid
-	 * @return int
-	 */
-	boolean addStockList(String plateBuid, String buid);
-	
-	/**
-	 * 
-	 * @param plateBuid
 	 * @param buidList
 	 * @return boolean
 	 */
 	boolean delStockList(String plateBuid,  String[] buidList);
+	
+	/**
+	 * 
+	 * @param plateBuid
+	 * @param buid
+	 * @return boolean
+	 */
+	boolean addStockList(String plateBuid, String buid);
 }

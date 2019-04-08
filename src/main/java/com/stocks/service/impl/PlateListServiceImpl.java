@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.stocks.dao.PlateListDao;
 import com.stocks.dao.StockDayDao;
 import com.stocks.entity.PlateList;
+import com.stocks.entity.StockDay;
 import com.stocks.service.PlateListService;
 import com.stocks.vo.StockDayVO;
 
@@ -34,12 +35,20 @@ public class PlateListServiceImpl implements PlateListService{
 		List<StockDayVO> stockList = new ArrayList<StockDayVO>();
 		for (PlateList list : plateList) {
 			String stockBuid = list.getStockBuid();
+			double addPrice = list.getAddPrice();
 			StockDayVO byBuidNow = sdd.getByBuidLast(stockBuid);
+			double closePrice = byBuidNow.getClosePrice();
+			//System.out.println(addPrice+" --> "+closePrice);
+			double percent = (double) ( Math.round((closePrice-addPrice)/addPrice*10000)/100);
+			//System.out.println(percent);
+			String percentStr = percent +"%";
+			byBuidNow.setAddEarn(percentStr);
 			stockList.add(byBuidNow);
 		}
 		map.put("data", stockList);
 		map.put("count", pld.getPlateListCount(plateBuid));
 		map.put("code", "0");
+		System.out.println(map);
 		return map;
 	}
 
@@ -47,7 +56,8 @@ public class PlateListServiceImpl implements PlateListService{
 	public boolean addStockList(String plateBuid, String buid) {
 		PlateList byPlateAndStock = pld.getByPlateAndStock(plateBuid, buid);
 		if(byPlateAndStock==null){
-			int addStockList = pld.addStockList(plateBuid, buid);
+			StockDay lastByBuid = sdd.getLastByBuid(buid);
+			int addStockList = pld.addStockList(plateBuid, buid, lastByBuid.getClosePrice());
 			if(addStockList ==1){
 				return true;
 			}
@@ -63,4 +73,5 @@ public class PlateListServiceImpl implements PlateListService{
 		}
 		return false;
 	}
+
 }

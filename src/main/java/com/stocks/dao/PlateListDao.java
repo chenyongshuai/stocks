@@ -20,7 +20,7 @@ public interface PlateListDao {
 	 * @param plateBuid
 	 * @return List<PlateList>
 	 */
-	@Select("Select stock_buid from base_plate_list where plate_buid=#{plateBuid}")
+	@Select("Select stock_buid,add_price from base_plate_list where plate_buid=#{plateBuid}")
 	List<PlateList> getPlateList(String plateBuid);
 	
 	/**
@@ -37,8 +37,8 @@ public interface PlateListDao {
 	 * @param buid
 	 * @return int
 	 */
-	@Insert("insert into base_plate_list values(#{plateBuid}, #{buid}, CURRENT_TIMESTAMP)")
-	int addStockList(@Param(value="plateBuid")String plateBuid, @Param(value="buid")String buid);
+	@Insert("insert into base_plate_list values(#{plateBuid}, #{buid}, #{addPrice},CURRENT_TIMESTAMP)")
+	int addStockList(@Param(value="plateBuid")String plateBuid, @Param(value="buid")String buid, @Param(value="addPrice")Double addPrice);
 	
 	/**
 	 * 

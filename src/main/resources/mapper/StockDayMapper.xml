@@ -5,11 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.stocks.dao.StockDayDao">
 	
-	<insert id="addStockDay">
-		insert into base_stock_detail_day values(#{buid},#{detailDay},#{openPrice},#{closePrice},#{changePrice},#{changePercent},#{lowPrice},#{topPrice},#{dealCount},#{dealAmount},#{tunPercent},current_timestamp,#{createBy},current_timestamp,#{updateBy})
-	</insert>
+	<!-- <insert id="addStockDay">
+		insert into base_stock_detail_day values(#{buid},#{detailDay},#{openPrice},#{closePrice},#{changePrice},#{changePercent},#{lowPrice},#{topPrice},#{dealCount},#{dealAmount},#{tunPercent},#{dif},#{dea},#{macd},current_timestamp,#{createBy},current_timestamp,#{updateBy})
+	</insert> -->
 	
-	<select id="getByBuid" resultType="StockDay">
-		select buid,detail_day,open_price,close_price,low_price,top_price,deal_count from base_stock_detail_day where buid = #{buid} order by detail_day
-	</select>
+	<!-- <select id="getByBuid" resultType="StockDay">
+		select buid,detail_day,open_price,close_price,low_price,top_price,deal_count,dif,dea,macd from base_stock_detail_day where buid = #{buid} order by detail_day
+	</select> -->
 </mapper>
